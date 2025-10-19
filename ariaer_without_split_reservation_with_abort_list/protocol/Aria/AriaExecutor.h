@@ -18,14 +18,13 @@
 #include <chrono>
 #include <thread>
 
-//with abort list
-//1. WriteReservation
+// without spilt reservation with abort list
+//1. WriteReservation and ReadReservation
 //2. barrier
 //3. WAW analysis
-//4. ReadReservation
-//5. barrier
-//6. WAR/RAW analysis
-//7. commit/abort
+//4. barrier
+//5. WAR/RAW analysis
+//6. commit/abort
 
 namespace aria
 {

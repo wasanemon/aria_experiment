@@ -18,6 +18,13 @@
 #include <chrono>
 #include <thread>
 
+//without any optimization 
+//1. ReadReservation and WriteReservation
+//2. barrier
+//3. WAW,WAR,RAW analysis
+//4. barrier
+//5. commit/abort
+
 namespace aria
 {
 

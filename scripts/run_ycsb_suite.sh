@@ -10,6 +10,9 @@
 ROOT="/home/wasanemon/project/aria_experiment"
 ARIA="$ROOT/aria/bench_ycsb"
 ARIAER="$ROOT/ariaer/bench_ycsb"
+ARIAER_SPLIT_NO_ABORT="$ROOT/ariaer_split_reservation_without_abort_list/bench_ycsb"
+ARIAER_NOSPLIT_NO_ABORT="$ROOT/ariaer_without_split_reservation_without_abort_list/bench_ycsb"
+ARIAER_NOSPLIT_ABORT="$ROOT/ariaer_without_split_reservation_with_abort_list/bench_ycsb"
 OUT="$ROOT/results_suite"
 
 mkdir -p "$OUT"
@@ -36,6 +39,10 @@ run_one () { # bin label protocol rw ops bs zipf
 
 run_engine () { # bin label
   local bin="$1" label="$2"
+  if [ ! -x "$bin" ]; then
+    echo "!! skip ${label}: binary not found at ${bin}" >&2
+    return
+  fi
   for z in "${zipfs[@]}"; do
     for rw in "${ratios[@]}"; do
       for ops in "${ops_list[@]}"; do
@@ -51,6 +58,9 @@ case "${1:-run}" in
   run)
     run_engine "${ARIA}" "aria"
     run_engine "${ARIAER}" "ariaer"
+    run_engine "${ARIAER_SPLIT_NO_ABORT}" "ariaer_split_no_abort_list"
+    run_engine "${ARIAER_NOSPLIT_NO_ABORT}" "ariaer_without_split_no_abort_list"
+    run_engine "${ARIAER_NOSPLIT_ABORT}" "ariaer_without_split_with_abort_list"
     ;;
   summarize)
     echo "zipf\tengine\trw\tops\tbatch_size\taverage_commit" | tee "${OUT}/summary.tsv"

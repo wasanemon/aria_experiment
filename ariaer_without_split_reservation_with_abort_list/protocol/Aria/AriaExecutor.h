@@ -115,6 +115,7 @@ namespace aria
           process_request();
         }
         process_request();
+        //2. barrier after write reservation and read reservation
         n_complete_workers.fetch_add(1);
 
         // wait till Aria_COMMIT
@@ -203,7 +204,7 @@ namespace aria
       }
       flush_messages();
 
-      // reserve
+      // 1. Write Reservation and Read Reservation
       count = 0;
       for (auto i = id; i < transactions.size(); i += context.worker_num)
       {
@@ -225,8 +226,7 @@ namespace aria
         // fill in writes in write set
         transactions[i]->execute(id);
 
-        // start reservation (Aria: writes only here)
-        reserve_writes_only(*transactions[i]);
+        reserve_transaction(*transactions[i]);
         if (count % context.batch_flush == 0)
         {
           flush_messages();
@@ -235,41 +235,7 @@ namespace aria
       flush_messages();
     }
 
-    // Aria: reserve writes only (read reservations are deferred to commit phase)
-    void reserve_writes_only(TransactionType &txn)
-    {
-
-      if (context.aria_read_only_optmization && txn.is_read_only())
-      {
-        return;
-      }
-
-      std::vector<AriaRWKey> &writeSet = txn.writeSet;
-      // reserve writes
-      for (std::size_t i = 0u; i < writeSet.size(); i++)
-      {
-        AriaRWKey &writeKey = writeSet[i];
-        auto tableId = writeKey.get_table_id();
-        auto partitionId = writeKey.get_partition_id();
-        auto table = db.find_table(tableId, partitionId);
-        if (partitioner->has_master_partition(partitionId))
-        {
-          std::atomic<uint64_t> &tid = AriaHelper::get_metadata(table, writeKey);
-          writeKey.set_tid(&tid);
-          AriaHelper::reserve_write(tid, txn.epoch, txn.id);
-        }
-        else
-        {
-          auto coordinatorID = this->partitioner->master_coordinator(partitionId);
-          txn.network_size += MessageFactoryType::new_reserve_message(
-              *(this->messages[coordinatorID]), *table, txn.id,
-              writeKey.get_key(), txn.epoch, true);
-        }
-      }
-    }
-
-    // Aria: reserve reads only (to be called in commit phase after WAW barrier)
-    void reserve_reads_only(TransactionType &txn)
+    void reserve_transaction(TransactionType &txn)
     {
 
       if (context.aria_read_only_optmization && txn.is_read_only())
@@ -278,7 +244,9 @@ namespace aria
       }
 
       std::vector<AriaRWKey> &readSet = txn.readSet;
+      std::vector<AriaRWKey> &writeSet = txn.writeSet;
 
+      // reserve reads;
       for (std::size_t i = 0u; i < readSet.size(); i++)
       {
         AriaRWKey &readKey = readSet[i];
@@ -302,7 +270,28 @@ namespace aria
           txn.network_size += MessageFactoryType::new_reserve_message(
               *(this->messages[coordinatorID]), *table, txn.id, readKey.get_key(),
               txn.epoch, false);
-          // In single-node experiments, this branch should not trigger.
+        }
+      }
+
+      // reserve writes
+      for (std::size_t i = 0u; i < writeSet.size(); i++)
+      {
+        AriaRWKey &writeKey = writeSet[i];
+        auto tableId = writeKey.get_table_id();
+        auto partitionId = writeKey.get_partition_id();
+        auto table = db.find_table(tableId, partitionId);
+        if (partitioner->has_master_partition(partitionId))
+        {
+          std::atomic<uint64_t> &tid = AriaHelper::get_metadata(table, writeKey);
+          writeKey.set_tid(&tid);
+          AriaHelper::reserve_write(tid, txn.epoch, txn.id);
+        }
+        else
+        {
+          auto coordinatorID = this->partitioner->master_coordinator(partitionId);
+          txn.network_size += MessageFactoryType::new_reserve_message(
+              *(this->messages[coordinatorID]), *table, txn.id,
+              writeKey.get_key(), txn.epoch, true);
         }
       }
     }
@@ -453,7 +442,7 @@ namespace aria
 
     void commit_transactions()
     {
-      // Step 1: WAW-only check
+      // 3. WAW analysis
       std::size_t count = 0;
       for (auto i = id; i < transactions.size(); i += context.worker_num)
       {
@@ -470,27 +459,10 @@ namespace aria
       }
       flush_messages();
 
-      // Step 2: reserve reads only (skip WAW-aborted txns)
-      count = 0;
-      for (auto i = id; i < transactions.size(); i += context.worker_num)
-      {
-        if (transactions[i]->abort_no_retry || transactions[i]->waw)
-        {
-          continue;
-        }
-        count++;
-        reserve_reads_only(*transactions[i]);
-        if (count % context.batch_flush == 0)
-        {
-          flush_messages();
-        }
-      }
-      flush_messages();
-
-      // Barrier after read reservations
+      // 4. barrier after WAW analysis
       barrier();
 
-      // Step 3: WAR/RAW-only check
+      // 5. WAR/RAW analysis
       count = 0;
       for (auto i = id; i < transactions.size(); i += context.worker_num)
       {
@@ -507,7 +479,7 @@ namespace aria
       }
       flush_messages();
 
-      // Proceed to commit/abort as in Aria
+      // 6. commit/abort
       count = 0;
       for (auto i = id; i < transactions.size(); i += context.worker_num)
       {

@@ -18,6 +18,7 @@
 #include <chrono>
 #include <thread>
 
+// based on AriaExecutor.h of ariaer
 // without spilt reservation with abort list
 //1. WriteReservation and ReadReservation
 //2. barrier
@@ -442,7 +443,7 @@ namespace aria
       }
     }
 
-    void barrier_step2() { barrier_wait(barrier2_count, barrier2_gen); }
+    void barrier() { barrier_wait(barrier_count, barrier_gen); }
 
     // Reset abort_list for a new batch (called by Manager before COMMIT phase)
     static void reset_abort_list(std::size_t size)
@@ -487,7 +488,7 @@ namespace aria
       flush_messages();
 
       // Barrier after read reservations
-      barrier_step2();
+      barrier();
 
       // Step 3: WAR/RAW-only check
       count = 0;
@@ -740,8 +741,8 @@ namespace aria
   private:
     // shared across workers (single-node). inline to avoid multiple-definition.
     inline static std::vector<uint8_t> abort_list;
-    inline static std::atomic<uint32_t> barrier2_count{0};
-    inline static std::atomic<uint32_t> barrier2_gen{0};
+    inline static std::atomic<uint32_t> barrier_count{0};
+    inline static std::atomic<uint32_t> barrier_gen{0};
 
     DatabaseType &db;
     const ContextType &context;

@@ -61,3 +61,7 @@ The repository includes the following 5 implementations:
 *   **Abort List:** A shared bit-vector used to broadcast the abort status of transactions.
 *   **Modify Reservation:** In protocols without an Abort List (#3, #4), a transaction that detects a WAW conflict executes `modify_reservation_on_waw()` to clear its Write Timestamp (WTS) from the metadata, effectively removing itself from the dependency graph of subsequent transactions.
 
+## install dependency
+
+*   sudo apt-get update
+*   sudo apt-get install -y zip make cmake g++ libjemalloc-dev libboost-dev libgoogle-glog-dev

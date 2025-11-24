@@ -11,8 +11,10 @@ DEFINE_string(skew_pattern, "both", "skew pattern: both, read, write");
 DEFINE_bool(two_partitions, false, "dist transactions access two partitions.");
 DEFINE_bool(pwv_ycsb_star, false, "ycsb keys dependency.");
 DEFINE_bool(global_key_space, false, "ycsb global key space.");
+DEFINE_int32(ops_per_txn, 100, "operations per transaction");
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   google::InitGoogleLogging(argv[0]);
   google::InstallFailureSignalHandler();
@@ -21,13 +23,20 @@ int main(int argc, char *argv[]) {
   aria::ycsb::Context context;
   SETUP_CONTEXT(context);
 
-  if (FLAGS_skew_pattern == "both") {
+  if (FLAGS_skew_pattern == "both")
+  {
     context.skewPattern = aria::ycsb::YCSBSkewPattern::BOTH;
-  } else if (FLAGS_skew_pattern == "read") {
+  }
+  else if (FLAGS_skew_pattern == "read")
+  {
     context.skewPattern = aria::ycsb::YCSBSkewPattern::READ;
-  } else if (FLAGS_skew_pattern == "write") {
+  }
+  else if (FLAGS_skew_pattern == "write")
+  {
     context.skewPattern = aria::ycsb::YCSBSkewPattern::WRITE;
-  } else {
+  }
+  else
+  {
     CHECK(false);
   }
 
@@ -35,16 +44,25 @@ int main(int argc, char *argv[]) {
   context.readOnlyTransaction = FLAGS_read_only_ratio;
   context.crossPartitionProbability = FLAGS_cross_ratio;
   context.keysPerPartition = FLAGS_keys;
+  context.keysPerTransaction = FLAGS_ops_per_txn;
+  if (context.keysPerTransaction > 100)
+  {
+    context.keysPerTransaction = 100; // capped by compile-time max size
+  }
   context.two_partitions = FLAGS_two_partitions;
   context.pwv_ycsb_star = FLAGS_pwv_ycsb_star;
   context.global_key_space = FLAGS_global_key_space;
 
-  if (FLAGS_zipf > 0) {
+  if (FLAGS_zipf > 0)
+  {
     context.isUniform = false;
-    if (context.global_key_space) {
+    if (context.global_key_space)
+    {
       aria::Zipf::globalZipf().init(
           context.keysPerPartition * context.partition_num, FLAGS_zipf);
-    } else {
+    }
+    else
+    {
       aria::Zipf::globalZipf().init(context.keysPerPartition, FLAGS_zipf);
     }
   }

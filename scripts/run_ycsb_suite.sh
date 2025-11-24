@@ -68,7 +68,7 @@ case "${1:-run}" in
       [ -e "$f" ] || continue
       base=$(basename "$f" .log)
       z=$(echo "$base" | sed -E 's/.*zipf_([0-9.]+)$/\1/')
-      label=$(echo "$base" | cut -d_ -f1)
+      label="${base%%_p*}"
       rw=$(echo "$base" | sed -E 's/.*_rw([0-9]+)_.*/\1/')
       ops=$(echo "$base" | sed -E 's/.*_ops([0-9]+)_.*/\1/')
       bs=$(echo "$base" | sed -E 's/.*_bs([0-9]+)_.*/\1/')

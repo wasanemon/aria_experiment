@@ -108,6 +108,7 @@ namespace aria
         } while (status != ExecutorStatus::Aria_READ);
 
         n_started_workers.fetch_add(1);
+        // 1. Write Reservation and read reservation
         read_snapshot();
         n_complete_workers.fetch_add(1);
         // wait to Aria_READ
@@ -117,9 +118,9 @@ namespace aria
           process_request();
         }
         process_request();
+        //2. barrier after write reservation and read reservation
         n_complete_workers.fetch_add(1);
 
-        // wait till Aria_COMMIT
         while (static_cast<ExecutorStatus>(worker_status.load()) !=
                ExecutorStatus::Aria_COMMIT)
         {
@@ -297,10 +298,48 @@ namespace aria
       }
     }
 
-    void analyze_dependency(TransactionType &txn)
+    // Aria: first dependency check (WAW only)
+    void first_dependency_check_waw(TransactionType &txn)
     {
-
       if (context.aria_read_only_optmization && txn.is_read_only())
+      {
+        return;
+      }
+
+      const std::vector<AriaRWKey> &writeSet = txn.writeSet;
+
+      for (std::size_t i = 0u; i < writeSet.size(); i++)
+      {
+        const AriaRWKey &writeKey = writeSet[i];
+        auto tableId = writeKey.get_table_id();
+        auto partitionId = writeKey.get_partition_id();
+        auto table = db.find_table(tableId, partitionId);
+
+        if (partitioner->has_master_partition(partitionId))
+        {
+          uint64_t meta = AriaHelper::get_metadata(table, writeKey).load();
+          uint64_t ep = AriaHelper::get_epoch(meta);
+          uint64_t wts = AriaHelper::get_wts(meta);
+          DCHECK(ep == txn.epoch);
+          if (ep == txn.epoch && wts < txn.id && wts != 0)
+          {
+            txn.waw = true;
+            break;
+          }
+        }
+      }
+    }
+
+    // Aria: second dependency check (WAR / RAW)
+    void second_dependency_check_war_raw(TransactionType &txn)
+    {
+      if (context.aria_read_only_optmization && txn.is_read_only())
+      {
+        return;
+      }
+
+      // Skip checks for transactions already aborted due to WAW
+      if (txn.waw)
       {
         return;
       }
@@ -308,8 +347,29 @@ namespace aria
       const std::vector<AriaRWKey> &readSet = txn.readSet;
       const std::vector<AriaRWKey> &writeSet = txn.writeSet;
 
-      // analyze raw
+      // WAR: any write key with rts < tid
+      for (std::size_t i = 0u; i < writeSet.size(); i++)
+      {
+        const AriaRWKey &writeKey = writeSet[i];
+        auto tableId = writeKey.get_table_id();
+        auto partitionId = writeKey.get_partition_id();
+        auto table = db.find_table(tableId, partitionId);
 
+        if (partitioner->has_master_partition(partitionId))
+        {
+          uint64_t meta = AriaHelper::get_metadata(table, writeKey).load();
+          uint64_t ep = AriaHelper::get_epoch(meta);
+          uint64_t rts = AriaHelper::get_rts(meta);
+          DCHECK(ep == txn.epoch);
+          if (ep == txn.epoch && rts < txn.id && rts != 0)
+          {
+            txn.war = true;
+            break;
+          }
+        }
+      }
+
+      // RAW: any read key with wts < tid and writer not aborted in WAW step
       for (std::size_t i = 0u; i < readSet.size(); i++)
       {
         const AriaRWKey &readKey = readSet[i];
@@ -343,46 +403,45 @@ namespace aria
           txn.pendingResponses++;
         }
       }
+    }
 
-      // analyze war and waw
-
+    // Aria: modify reservation for WAW-aborted transactions (clear WTS)
+    void modify_reservation_on_waw(TransactionType &txn)
+    {
+      const std::vector<AriaRWKey> &writeSet = txn.writeSet;
       for (std::size_t i = 0u; i < writeSet.size(); i++)
       {
         const AriaRWKey &writeKey = writeSet[i];
-
         auto tableId = writeKey.get_table_id();
         auto partitionId = writeKey.get_partition_id();
-        auto table = db.find_table(tableId, partitionId);
 
         if (partitioner->has_master_partition(partitionId))
         {
-          uint64_t tid = AriaHelper::get_metadata(table, writeKey).load();
-          uint64_t epoch = AriaHelper::get_epoch(tid);
-          uint64_t rts = AriaHelper::get_rts(tid);
-          uint64_t wts = AriaHelper::get_wts(tid);
-          DCHECK(epoch == txn.epoch);
-          if (epoch == txn.epoch && rts < txn.id && rts != 0)
+          auto table = db.find_table(tableId, partitionId);
+          std::atomic<uint64_t> &meta_ptr = AriaHelper::get_metadata(table, writeKey);
+
+          uint64_t old_value, new_value;
+          do
           {
-            txn.war = true;
-          }
-          if (epoch == txn.epoch && wts < txn.id && wts != 0)
-          {
-            txn.waw = true;
-          }
-        }
-        else
-        {
-          auto coordinatorID = this->partitioner->master_coordinator(partitionId);
-          txn.network_size += MessageFactoryType::new_check_message(
-              *(this->messages[coordinatorID]), *table, txn.id, txn.tid_offset,
-              writeKey.get_key(), txn.epoch, true);
-          txn.pendingResponses++;
+            old_value = meta_ptr.load();
+            if (AriaHelper::get_epoch(old_value) != txn.epoch)
+            {
+              break;
+            }
+            if (AriaHelper::get_wts(old_value) != txn.id)
+            {
+              break;
+            }
+            new_value = old_value;
+            new_value = AriaHelper::set_wts(new_value, 0);
+          } while (!meta_ptr.compare_exchange_weak(old_value, new_value));
         }
       }
     }
 
     void commit_transactions()
     {
+      // 3. WAW analysis
       std::size_t count = 0;
       for (auto i = id; i < transactions.size(); i += context.worker_num)
       {
@@ -393,7 +452,52 @@ namespace aria
 
         count++;
 
-        analyze_dependency(*transactions[i]);
+        first_dependency_check_waw(*transactions[i]);
+        if (count % context.batch_flush == 0)
+        {
+          flush_messages();
+        }
+      }
+      flush_messages();
+      // 4. barrier after WAW analysis
+      barrier();
+
+      // 5. modify reservation by waw-aborted txns
+      count = 0;
+      for (auto i = id; i < transactions.size(); i += context.worker_num)
+      {
+        if (transactions[i]->abort_no_retry)
+        {
+          continue;
+        }
+
+        if (!transactions[i]->waw)
+        {
+          continue; // skip non-WAW txns
+        }
+
+        count++;
+        modify_reservation_on_waw(*transactions[i]);
+        if (count % context.batch_flush == 0)
+        {
+          flush_messages();
+        }
+      }
+      flush_messages();
+      // 6. barrier after modify reservation by waw-aborted txns
+      barrier_2();
+
+      // 7. WAR/RAW analysis
+      count = 0;
+      for (auto i = id; i < transactions.size(); i += context.worker_num)
+      {
+        if (transactions[i]->abort_no_retry || transactions[i]->waw)
+        {
+          continue;
+        }
+        count++;
+
+        second_dependency_check_war_raw(*transactions[i]);
         if (count % context.batch_flush == 0)
         {
           flush_messages();
@@ -495,6 +599,28 @@ namespace aria
       }
       flush_messages();
     }
+
+        // simple reusable barriers within a batch (single-node)
+    void barrier_wait(std::atomic<uint32_t> &count, std::atomic<uint32_t> &gen)
+    {
+      uint32_t g = gen.load(std::memory_order_acquire);
+      if (count.fetch_add(1, std::memory_order_acq_rel) + 1 == context.worker_num)
+      {
+        count.store(0, std::memory_order_release);
+        gen.fetch_add(1, std::memory_order_acq_rel);
+      }
+      else
+      {
+        while (gen.load(std::memory_order_acquire) == g)
+        {
+          std::this_thread::yield();
+        }
+      }
+    }
+
+    void barrier() { barrier_wait(barrier_count, barrier_gen); }
+
+    void barrier_2() { barrier_wait(barrier_count_2, barrier_gen_2); }
 
     void setupHandlers(TransactionType &txn)
     {
@@ -636,6 +762,14 @@ namespace aria
     }
 
   private:
+    // shared across workers (single-node). inline to avoid multiple-definition.
+    inline static std::atomic<uint32_t> barrier_count{0};
+    inline static std::atomic<uint32_t> barrier_gen{0};
+
+    // 追加: barrier_2 用
+    inline static std::atomic<uint32_t> barrier_count_2{0};
+    inline static std::atomic<uint32_t> barrier_gen_2{0};
+
     DatabaseType &db;
     const ContextType &context;
     std::vector<std::unique_ptr<TransactionType>> &transactions;

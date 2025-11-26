@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-# YCSB sweep for aria and ariaer
-# - threads: 16
-# - partitions: 16
+# YCSB sweep for aria and ariaer (Aria paper settings)
+# - threads: 12
+# - partitions: 12
+# - keys: 40000 (per partition, matching Aria paper)
+# - global_key_space: True (global hotspot)
+# - cross_ratio: 100 (all transactions are cross-partition)
 # - zipf: 0.0..0.9
 # - read_write_ratio: 80, 50
 # - ops_per_txn: 10, 100
@@ -17,24 +20,26 @@ OUT="$ROOT/results_suite"
 
 mkdir -p "$OUT"
 
-threads=${THREADS:-16}
-parts=${PARTITIONS:-16}
+threads=${THREADS:-12}
+parts=${PARTITIONS:-12}
+keys=${KEYS:-40000}
 
 zipfs=(0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9)
 ratios=(80 50)
 ops_list=(10 100)
-batch_sizes=(1024 2048 4096 16000)
+batch_sizes=(1000 10000)
 
 
 run_one () { # bin label protocol rw ops bs zipf
   local bin="$1" label="$2" proto="$3" rw="$4" ops="$5" bs="$6" z="$7"
-  local tag="${label}_p${parts}_t${threads}_rw${rw}_ops${ops}_bs${bs}_zipf_${z}"
+  local tag="${label}_p${parts}_t${threads}_k${keys}_rw${rw}_ops${ops}_bs${bs}_zipf_${z}"
   local log="${OUT}/${tag}.log"
   echo "=== ${tag} ==="
   "${bin}" --logtostderr=1 --protocol="${proto}" --id=0 --servers="127.0.0.1:10010" \
     --partition_num="${parts}" --threads="${threads}" --batch_size="${bs}" \
     --read_write_ratio="${rw}" --skew_pattern=both --zipf="${z}" \
-    --ops_per_txn="${ops}" 2>&1 | tee "${log}" || true
+    --ops_per_txn="${ops}" --keys="${keys}" \
+    --global_key_space=True --cross_ratio=100 2>&1 | tee "${log}" || true
 }
 
 run_engine () { # bin label
@@ -63,17 +68,18 @@ case "${1:-run}" in
     run_engine "${ARIAER_NOSPLIT_ABORT}" "ariaer_without_split_with_abort_list"
     ;;
   summarize)
-    echo "zipf\tengine\trw\tops\tbatch_size\taverage_commit" | tee "${OUT}/summary.tsv"
+    echo "zipf\tengine\tkeys\trw\tops\tbatch_size\taverage_commit" | tee "${OUT}/summary.tsv"
     for f in "${OUT}"/*.log; do
       [ -e "$f" ] || continue
       base=$(basename "$f" .log)
       z=$(echo "$base" | sed -E 's/.*zipf_([0-9.]+)$/\1/')
       label="${base%%_p*}"
+      k=$(echo "$base" | sed -E 's/.*_k([0-9]+)_.*/\1/')
       rw=$(echo "$base" | sed -E 's/.*_rw([0-9]+)_.*/\1/')
       ops=$(echo "$base" | sed -E 's/.*_ops([0-9]+)_.*/\1/')
       bs=$(echo "$base" | sed -E 's/.*_bs([0-9]+)_.*/\1/')
       avg=$(grep -o "average commit: [0-9.]*" "$f" | tail -1 | awk '{print $3}')
-      echo -e "${z}\t${label}\t${rw}\t${ops}\t${bs}\t${avg:-NA}" | tee -a "${OUT}/summary.tsv"
+      echo -e "${z}\t${label}\t${k}\t${rw}\t${ops}\t${bs}\t${avg:-NA}" | tee -a "${OUT}/summary.tsv"
     done
     ;;
   *)

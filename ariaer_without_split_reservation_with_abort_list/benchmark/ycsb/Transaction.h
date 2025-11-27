@@ -26,7 +26,7 @@ public:
   using RandomType = typename DatabaseType::RandomType;
   using StorageType = Storage;
 
-  static constexpr std::size_t keys_num = 10;
+  static constexpr std::size_t keys_num = 100;
 
   ReadModifyWrite(std::size_t coordinator_id, std::size_t partition_id,
                   DatabaseType &db, const ContextType &context,
@@ -41,11 +41,11 @@ public:
 
   TransactionResult execute(std::size_t worker_id) override {
 
-    DCHECK(context.keysPerTransaction == keys_num);
+    DCHECK(context.keysPerTransaction <= keys_num);
 
     int ycsbTableID = ycsb::tableID;
 
-    for (auto i = 0u; i < keys_num; i++) {
+    for (auto i = 0u; i < context.keysPerTransaction; i++) {
       auto key = query.Y_KEY[i];
       storage.ycsb_keys[i].Y_KEY = key;
       if (query.UPDATE[i]) {
@@ -61,7 +61,7 @@ public:
       return TransactionResult::ABORT;
     }
 
-    for (auto i = 0u; i < keys_num; i++) {
+    for (auto i = 0u; i < context.keysPerTransaction; i++) {
       auto key = query.Y_KEY[i];
       if (query.UPDATE[i]) {
 

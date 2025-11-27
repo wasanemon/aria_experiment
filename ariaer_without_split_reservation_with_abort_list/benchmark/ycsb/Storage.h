@@ -10,8 +10,8 @@ namespace aria {
 
 namespace ycsb {
 struct Storage {
-  ycsb::key ycsb_keys[YCSB_FIELD_SIZE];
-  ycsb::value ycsb_values[YCSB_FIELD_SIZE];
+  ycsb::key ycsb_keys[100];
+  ycsb::value ycsb_values[100];
 };
 
 } // namespace ycsb

@@ -1,0 +1,128 @@
+
+
+## ariaer 改善案メモ
+
+### 1. Adaptive ER
+
+`Adaptive ER` はかなり有望。今の `ariaer` は ER が常時 ON で、低競合ではその追加 phase 自体がオーバーヘッドになりうる。
+
+- `use_er=true`:
+  - `READ` フェーズでは `write` だけ予約
+  - `COMMIT` で `WAW` 判定
+  - その後 `read` 予約
+  - barrier 後に `WAR/RAW`
+- `use_er=false`:
+  - vanilla `Aria` と同じく `read`/`write` をまとめて予約
+  - `COMMIT` で通常の依存判定
+
+実装するなら `commit_transactions()` だけでなく、`read_snapshot()` の予約戦略から分岐させる必要がある。batch 単位で Manager が `use_er` を決め、全 worker が同じフラグで動く形が自然。
+
+切替条件としては、前 batch の次のような統計が候補:
+
+- `WAW abort` 率
+- conflict abort 率
+- 平均 `readSet` 長
+- 最大 `readSet` 長
+- `ops_per_txn`
+- skew の高さ
+
+決定論性を保つには、壁時計時間ではなく「前 batch の論理統計」だけで切り替えるのがよい。さらに ON/OFF が振動しないように hysteresis を入れるのが望ましい。
+
+今のコードでは `WAW` と `RAW/WAR` がどちらも `n_abort_lock` に入っており、ER の効果を直接見分けにくい。少なくとも次の統計を追加したい:
+
+- `n_abort_waw`
+- `n_abort_raw`
+- `n_abort_war`
+- `sum_readset`
+- `sum_writeset`
+- `max_readset`
+
+### 2. Metadata locality の改善
+
+これもかなり有望。特に今の実装では `abort_list` と transaction 割り当て方のせいで false sharing が起きやすい。
+
+ただし、`read_tid` と `write_tid` はすでに別変数ではなく 1 個の 64bit metadata に packed されている:
+
+- `[epoch | read-rts | write-wts]`
+
+なので、改善余地が大きいのは別の場所。
+
+#### 2-1. metadata と value の分離
+
+今の table は row を `std::tuple<MetaDataType, ValueType>` で持っている。依存判定は metadata しか見ないのに payload に近い領域を触るため、`metadata-only` 領域に分ける価値がある。
+
+優先順位としては:
+
+- まず metadata を value から分離
+- その後、必要なら hot key metadata の別配置を検討
+
+#### 2-2. abort_list の軽量化
+
+今の `abort_list` は shared な `std::vector<uint8_t>`。さらに worker は `i += context.worker_num` のストライドで transaction を担当するので、隣接 `tid_offset` を別 worker が触りやすい。
+
+改善候補:
+
+- `abort_list` の bitmap 化
+- worker ごとの local bitmap / local abort buffer
+- barrier 後のまとめて反映
+- 共有配列の cache line alignment
+
+#### 2-3. worker 割り当ての見直し
+
+今のような strided assignment より、worker ごとに contiguous chunk を担当させたほうが `transactions` と `abort_list` の局所性がよくなり、false sharing も減らしやすい。
+
+#### 2-4. thread-local に近い補助構造
+
+per-key metadata 自体は shared state なので thread-local にはできないが、次の補助構造は per-worker 化できる:
+
+- `WAW` abort 候補集合
+- batch 統計
+- hot key の観測情報
+- `abort_list` の一時バッファ
+
+### 優先順位
+
+今の `ariaer` に対しては、次の順で進めるのがよさそう:
+
+1. `Adaptive ER`
+2. `abort_list` と worker 割り当ての locality 改善
+3. metadata/value 分離
+4. hot key metadata の特別扱い
+
+研究として面白いのは `Adaptive ER`、実装としてまず効きそうなのは locality 改善。
+
+## `skew=0` での `ariaer` 性能低下メモ
+
+`skew=0` の `ariaer` 低下は、単純に「競合が多すぎる」からではなく、`ER` の pruning が効かないことで commit phase の固定コストが前面に出ている可能性が高い。
+
+観測点:
+
+- 特に `retry-fixed ariaer` で顕著
+- `threads=12, rw=50, ops=100, bs=1024` では
+  - `zipf=0.0`: `commit=4835`, `abort=37046`, `total=41881`
+  - `zipf=0.2`: `commit=7196`, `abort=76669`, `total=83865`
+- つまり `zipf=0.2` の方が abort は増えているのに、総処理量は約 2 倍
+
+このため、主因は conflict 増加ではなく executor 側オーバーヘッドとみるのが自然。
+
+考えられる理由:
+
+- `ariaer` は `WAW` を先に見て、`WAW` loser だけを早期に後段から外す構造
+- `zipf=0` では global key space 全体への uniform access になるので hot key ができにくい
+- その結果、`WAW` pruning があまり効かず、多くの transaction が
+  - `WAW` 判定
+  - `read reservation`
+  - barrier
+  - `WAR/RAW` 判定
+  を全部通る
+- `ariaer` は `aria` より metadata を複数回なめるので、この full-path コストを受けやすい
+- `retry-fixed` では abort transaction を次 batch へ持ち越すため、この高コスト経路が繰り返されやすい
+
+改善の方向:
+
+1. `abort_list` の shared 更新/参照を per-worker 化して merge する
+2. barrier の軽量化
+3. metadata load の再利用
+4. uniform 寄りでは `aria` 風の単相 dependency check に切り替える `Adaptive ER`
+
+次にやるなら、まず `Step1(WAW)`, `Step2(read reserve)`, `Step3(WAR/RAW)`, barrier 待ち時間を batch ごとに計測して、どこが支配的かを実測で確かめたい。

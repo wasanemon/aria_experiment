@@ -1,0 +1,27 @@
+Per-run results
+zipf=0.0 rep=1 label=baseline-current exit=0 commit=6626.2 abort=35460.2 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/baseline-current_t12_rw50_ops100_bs1024_zipf0.0_rep1.log
+zipf=0.0 rep=1 label=patched-branch exit=0 commit=11475.3 abort=61740.7 elapsed=26.4s log=/work/miyayu/aria_experiment/results/quick_perf_checks/patched-branch_t12_rw50_ops100_bs1024_zipf0.0_rep1.log
+zipf=0.0 rep=2 label=baseline-current exit=0 commit=6602.2 abort=35484.2 elapsed=26.2s log=/work/miyayu/aria_experiment/results/quick_perf_checks/baseline-current_t12_rw50_ops100_bs1024_zipf0.0_rep2.log
+zipf=0.0 rep=2 label=patched-branch exit=0 commit=7491.9 abort=40124.1 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/patched-branch_t12_rw50_ops100_bs1024_zipf0.0_rep2.log
+zipf=0.0 rep=3 label=baseline-current exit=0 commit=11438.2 abort=61573.0 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/baseline-current_t12_rw50_ops100_bs1024_zipf0.0_rep3.log
+zipf=0.0 rep=3 label=patched-branch exit=0 commit=10938.6 abort=58591.0 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/patched-branch_t12_rw50_ops100_bs1024_zipf0.0_rep3.log
+zipf=0.2 rep=1 label=baseline-current exit=0 commit=10868.1 abort=62655.1 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/baseline-current_t12_rw50_ops100_bs1024_zipf0.2_rep1.log
+zipf=0.2 rep=1 label=patched-branch exit=0 commit=5729.1 abort=33182.9 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/patched-branch_t12_rw50_ops100_bs1024_zipf0.2_rep1.log
+zipf=0.2 rep=2 label=baseline-current exit=0 commit=5922.2 abort=34321.0 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/baseline-current_t12_rw50_ops100_bs1024_zipf0.2_rep2.log
+zipf=0.2 rep=2 label=patched-branch exit=0 commit=9213.8 abort=53045.4 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/patched-branch_t12_rw50_ops100_bs1024_zipf0.2_rep2.log
+zipf=0.2 rep=3 label=baseline-current exit=0 commit=10701.1 abort=61695.7 elapsed=26.4s log=/work/miyayu/aria_experiment/results/quick_perf_checks/baseline-current_t12_rw50_ops100_bs1024_zipf0.2_rep3.log
+zipf=0.2 rep=3 label=patched-branch exit=0 commit=10270.2 abort=59259.4 elapsed=26.3s log=/work/miyayu/aria_experiment/results/quick_perf_checks/patched-branch_t12_rw50_ops100_bs1024_zipf0.2_rep3.log
+
+Aggregates
+zipf=0.0
+  baseline-current commit mean=8222.2, min=6602.2, max=11438.2, stdev=2274.1
+  baseline-current abort  mean=44172.5, min=35460.2, max=61573.0, stdev=12304.0
+  patched-branch commit mean=9968.6, min=7491.9, max=11475.3, stdev=1764.9
+  patched-branch abort  mean=53485.3, min=40124.1, max=61740.7, stdev=9534.9
+  patched_vs_baseline_commit_pct=21.24
+zipf=0.2
+  baseline-current commit mean=9163.8, min=5922.2, max=10868.1, stdev=2293.2
+  baseline-current abort  mean=52890.6, min=34321.0, max=62655.1, stdev=13136.5
+  patched-branch commit mean=8404.4, min=5729.1, max=10270.2, stdev=1940.2
+  patched-branch abort  mean=48495.9, min=33182.9, max=59259.4, stdev=11121.1
+  patched_vs_baseline_commit_pct=-8.29

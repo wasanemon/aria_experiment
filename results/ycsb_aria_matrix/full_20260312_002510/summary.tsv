@@ -1,0 +1,6 @@
+variant	engine	threads	zipf	rw	ops	batch_size	exit_code	elapsed_sec	average_commit	average_abort	total_commit	log_path
+current	aria	1	0.0	50	10	1024	0	27	43733.3	1220.3	43733.3	/work/miyayu/aria_experiment/results/ycsb_aria_matrix/full_20260312_002510/current_aria_p12_t1_k40000_rw50_ops10_bs1024_zipf_0.0.log
+current	aria	1	0.0	50	10	2048	0	27	41082.7	2334.9	41082.7	/work/miyayu/aria_experiment/results/ycsb_aria_matrix/full_20260312_002510/current_aria_p12_t1_k40000_rw50_ops10_bs2048_zipf_0.0.log
+current	aria	1	0.0	50	10	4096	0	28	36864	4505.6	36864	/work/miyayu/aria_experiment/results/ycsb_aria_matrix/full_20260312_002510/current_aria_p12_t1_k40000_rw50_ops10_bs4096_zipf_0.0.log
+current	aria	1	0.0	50	100	1024	0	27	826.3	5624.9	826.3	/work/miyayu/aria_experiment/results/ycsb_aria_matrix/full_20260312_002510/current_aria_p12_t1_k40000_rw50_ops100_bs1024_zipf_0.0.log
+current	aria	1	0.0	50	100	2048	0	27	401.8	5947	401.8	/work/miyayu/aria_experiment/results/ycsb_aria_matrix/full_20260312_002510/current_aria_p12_t1_k40000_rw50_ops100_bs2048_zipf_0.0.log

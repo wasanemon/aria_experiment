@@ -1,0 +1,15 @@
+mode=full
+server=127.0.0.1:10010
+partitions=12
+keys=40000
+io_threads=1
+cpu_affinity=true
+global_key_space=True
+cross_ratio=100
+skew_pattern=both
+threads=1 2 4 8 16 32 48 62
+zipfs=0.0 0.2 0.4 0.6 0.8 0.9
+read_write_ratios=50 80
+ops_per_txn=10 100
+batch_sizes=1024 2048 4096
+total_runs=2304

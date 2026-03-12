@@ -1,0 +1,69 @@
+I0312 10:19:07.640815 422601 Database.h:65] ycsb initialization finished in 98 milliseconds.
+I0312 10:19:07.641017 422601 Coordinator.h:30] Coordinator initializes 12 workers.
+I0312 10:19:07.681228 422601 Coordinator.h:77] Coordinator starts to run 13 workers.
+I0312 10:19:07.681310 422617 AriaExecutor.h:91] AriaExecutor 0 started. 
+I0312 10:19:07.681354 422618 AriaExecutor.h:91] AriaExecutor 1 started. 
+I0312 10:19:07.681422 422619 AriaExecutor.h:91] AriaExecutor 2 started. 
+I0312 10:19:07.681490 422620 AriaExecutor.h:91] AriaExecutor 3 started. 
+I0312 10:19:07.681636 422622 AriaExecutor.h:91] AriaExecutor 5 started. 
+I0312 10:19:07.681694 422623 AriaExecutor.h:91] AriaExecutor 6 started. 
+I0312 10:19:07.681769 422624 AriaExecutor.h:91] AriaExecutor 7 started. 
+I0312 10:19:07.681814 422625 AriaExecutor.h:91] AriaExecutor 8 started. 
+I0312 10:19:07.681860 422621 AriaExecutor.h:91] AriaExecutor 4 started. 
+I0312 10:19:07.681963 422626 AriaExecutor.h:91] AriaExecutor 9 started. 
+I0312 10:19:07.682130 422627 AriaExecutor.h:91] AriaExecutor 10 started. 
+I0312 10:19:07.682281 422628 AriaExecutor.h:91] AriaExecutor 11 started. 
+I0312 10:19:07.682437 422629 Manager.h:224] Manager(worker id = 12) on the coordinator node started.
+I0312 10:19:08.682499 422601 Coordinator.h:126] commit: 90 abort: 84902 (0/84902/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:09.682657 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:10.682943 422601 Coordinator.h:126] commit: 91 abort: 86949 (0/86949/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:11.683154 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:12.683271 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:13.683393 422601 Coordinator.h:126] commit: 89 abort: 87975 (0/87975/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:14.683514 422601 Coordinator.h:126] commit: 88 abort: 87976 (0/87976/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:15.683706 422601 Coordinator.h:126] commit: 89 abort: 87975 (0/87975/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:16.683853 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:17.683976 422601 Coordinator.h:126] commit: 87 abort: 87977 (0/87977/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:18.684101 422601 Coordinator.h:126] commit: 88 abort: 87976 (0/87976/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:19.684229 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:20.684367 422601 Coordinator.h:126] commit: 93 abort: 86947 (0/86947/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:21.684490 422601 Coordinator.h:126] commit: 89 abort: 87975 (0/87975/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:22.684609 422601 Coordinator.h:126] commit: 87 abort: 87977 (0/87977/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:23.684723 422601 Coordinator.h:126] commit: 88 abort: 87976 (0/87976/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:24.684897 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:25.685037 422601 Coordinator.h:126] commit: 89 abort: 87975 (0/87975/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:26.685158 422601 Coordinator.h:126] commit: 94 abort: 87970 (0/87970/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:27.685272 422601 Coordinator.h:126] commit: 92 abort: 87972 (0/87972/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:28.685393 422601 Coordinator.h:126] commit: 87 abort: 87977 (0/87977/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:29.685523 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:30.685645 422601 Coordinator.h:126] commit: 90 abort: 87974 (0/87974/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:31.685781 422601 Coordinator.h:126] commit: 91 abort: 87973 (0/87973/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:32.685920 422601 Coordinator.h:126] commit: 90 abort: 86950 (0/86950/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:32.685967 422601 Coordinator.h:152] average commit: 90.2 abort: 87871.4 (0/87871.4/0), network size: 0, avg network size: 0, si_in_serializable: 0 0 %, local: 0 %
+I0312 10:19:32.686012 422601 AriaExecutor.h:649] Worker 0 latency: 11622 us (50%) 11667 us (75%) 11747 us (95%) 11839 us (99%).
+I0312 10:19:32.690742 422619 AriaExecutor.h:103] AriaExecutor 2 exits. 
+I0312 10:19:32.690742 422618 AriaExecutor.h:103] AriaExecutor 1 exits. 
+I0312 10:19:32.690742 422625 AriaExecutor.h:103] AriaExecutor 8 exits. 
+I0312 10:19:32.690755 422627 AriaExecutor.h:103] AriaExecutor 10 exits. 
+I0312 10:19:32.690742 422626 AriaExecutor.h:103] AriaExecutor 9 exits. 
+I0312 10:19:32.690742 422623 AriaExecutor.h:103] AriaExecutor 6 exits. 
+I0312 10:19:32.690742 422624 AriaExecutor.h:103] AriaExecutor 7 exits. 
+I0312 10:19:32.690742 422620 AriaExecutor.h:103] AriaExecutor 3 exits. 
+I0312 10:19:32.690742 422617 AriaExecutor.h:103] AriaExecutor 0 exits. 
+I0312 10:19:32.690768 422629 Manager.h:227] Manager(worker id = 12) on the coordinator node exits.
+I0312 10:19:32.690742 422621 AriaExecutor.h:103] AriaExecutor 4 exits. 
+I0312 10:19:32.690757 422628 AriaExecutor.h:103] AriaExecutor 11 exits. 
+I0312 10:19:32.690742 422622 AriaExecutor.h:103] AriaExecutor 5 exits. 
+I0312 10:19:32.691044 422601 AriaExecutor.h:649] Worker 1 latency: 11624 us (50%) 11676 us (75%) 11735 us (95%) 11837 us (99%).
+I0312 10:19:32.691080 422601 AriaExecutor.h:649] Worker 2 latency: 11610 us (50%) 11651 us (75%) 12986 us (95%) 12986 us (99%).
+I0312 10:19:32.691102 422601 AriaExecutor.h:649] Worker 3 latency: 11651 us (50%) 11660 us (75%) 11737 us (95%) 11737 us (99%).
+I0312 10:19:32.691121 422601 AriaExecutor.h:649] Worker 4 latency: 11655 us (50%) 11687 us (75%) 11720 us (95%) 11720 us (99%).
+I0312 10:19:32.691208 422601 AriaExecutor.h:649] Worker 5 latency: 11695 us (50%) 11770 us (75%) 11770 us (95%) 11770 us (99%).
+I0312 10:19:32.691264 422601 AriaExecutor.h:649] Worker 6 latency: 11609 us (50%) 11609 us (75%) 11609 us (95%) 11609 us (99%).
+I0312 10:19:32.691331 422601 AriaExecutor.h:649] Worker 7 latency: 0 us (50%) 0 us (75%) 0 us (95%) 0 us (99%).
+I0312 10:19:32.691381 422601 AriaExecutor.h:649] Worker 8 latency: 11582 us (50%) 11717 us (75%) 11717 us (95%) 11717 us (99%).
+I0312 10:19:32.691448 422601 AriaExecutor.h:649] Worker 9 latency: 0 us (50%) 0 us (75%) 0 us (95%) 0 us (99%).
+I0312 10:19:32.691496 422601 AriaExecutor.h:649] Worker 10 latency: 11579 us (50%) 11579 us (75%) 11579 us (95%) 11579 us (99%).
+I0312 10:19:32.691563 422601 AriaExecutor.h:649] Worker 11 latency: 0 us (50%) 0 us (75%) 0 us (95%) 0 us (99%).
+I0312 10:19:32.691633 422601 Coordinator.h:177] total commit: 90.2
+I0312 10:19:33.691879 422601 Coordinator.h:192] Coordinator exits.

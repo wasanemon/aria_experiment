@@ -75,9 +75,10 @@ namespace aria
         // wait for all machines until they finish the Aria_READ phase.
         wait4_ack();
 
-        // Allow each worker to commit transactions
-        // Initialize abort_list for this batch before COMMIT starts
-        AriaExecutor<WorkloadType>::reset_abort_list(transactions.size());
+        // Allow each worker to commit transactions.
+        // Initialize per-worker WAW flags for this batch before COMMIT starts.
+        AriaExecutor<WorkloadType>::reset_abort_flags(context.worker_num,
+                                                      transactions.size());
         n_started_workers.store(0);
         n_completed_workers.store(0);
         signal_worker(ExecutorStatus::Aria_COMMIT);
@@ -133,8 +134,9 @@ namespace aria
 
         status = wait4_signal();
         DCHECK(status == ExecutorStatus::Aria_COMMIT);
-        // Initialize abort_list for this batch before COMMIT starts
-        AriaExecutor<WorkloadType>::reset_abort_list(transactions.size());
+        // Initialize per-worker WAW flags for this batch before COMMIT starts.
+        AriaExecutor<WorkloadType>::reset_abort_flags(context.worker_num,
+                                                      transactions.size());
         n_started_workers.store(0);
         n_completed_workers.store(0);
         set_worker_status(ExecutorStatus::Aria_COMMIT);

@@ -307,6 +307,57 @@ namespace aria
       }
     }
 
+    struct alignas(64) BarrierState
+    {
+      std::atomic<uint32_t> count{0};
+      std::atomic<uint32_t> generation{0};
+    };
+
+    std::size_t owner_worker_for_offset(std::size_t tid_offset) const
+    {
+      return tid_offset % context.worker_num;
+    }
+
+    static std::vector<std::vector<uint8_t>> &abort_flags_storage()
+    {
+      static std::vector<std::vector<uint8_t>> abort_flags_by_worker;
+      return abort_flags_by_worker;
+    }
+
+    static BarrierState &commit_barrier_storage()
+    {
+      static BarrierState commit_barrier;
+      return commit_barrier;
+    }
+
+    void mark_waw_abort(std::size_t tid_offset)
+    {
+      auto &abort_flags_by_worker = abort_flags_storage();
+      auto owner = owner_worker_for_offset(tid_offset);
+      if (owner < abort_flags_by_worker.size() &&
+          tid_offset < abort_flags_by_worker[owner].size())
+      {
+        abort_flags_by_worker[owner][tid_offset] = 1;
+      }
+    }
+
+    bool writer_survived_waw(std::size_t tid_offset) const
+    {
+      if (tid_offset == static_cast<std::size_t>(-1))
+      {
+        return true;
+      }
+
+      const auto &abort_flags_by_worker = abort_flags_storage();
+      auto owner = owner_worker_for_offset(tid_offset);
+      if (owner < abort_flags_by_worker.size() &&
+          tid_offset < abort_flags_by_worker[owner].size())
+      {
+        return abort_flags_by_worker[owner][tid_offset] == 0;
+      }
+      return true;
+    }
+
     // Aria: first dependency check (WAW only)
     void first_dependency_check_waw(TransactionType &txn)
     {
@@ -340,15 +391,11 @@ namespace aria
 
       if (txn.waw)
       {
-        // mark abort list at tid_offset
-        if (txn.tid_offset < abort_list.size())
-        {
-          abort_list[txn.tid_offset] = 1;
-        }
+        mark_waw_abort(txn.tid_offset);
       }
     }
 
-    // Aria: second dependency check (WAR / RAW) using abort_list filtering
+    // Aria: second dependency check (WAR / RAW) using per-worker WAW flags
     void second_dependency_check_war_raw(TransactionType &txn)
     {
       if (context.aria_read_only_optmization && txn.is_read_only())
@@ -410,11 +457,7 @@ namespace aria
           {
             // map writer tid -> tid_offset (single-node: offset = tid-1)
             std::size_t writer_offset = (wts >= 1) ? static_cast<std::size_t>(wts - 1) : static_cast<std::size_t>(-1);
-            bool writer_alive = true;
-            if (writer_offset != static_cast<std::size_t>(-1) && writer_offset < abort_list.size())
-            {
-              writer_alive = (abort_list[writer_offset] == 0);
-            }
+            bool writer_alive = writer_survived_waw(writer_offset);
             if (writer_alive)
             {
               txn.raw = true;
@@ -426,29 +469,40 @@ namespace aria
     }
 
     // simple reusable barriers within a batch (single-node)
-    void barrier_wait(std::atomic<uint32_t> &count, std::atomic<uint32_t> &gen)
+    void barrier_wait(BarrierState &barrier)
     {
-      uint32_t g = gen.load(std::memory_order_acquire);
-      if (count.fetch_add(1, std::memory_order_acq_rel) + 1 == context.worker_num)
+      uint32_t g = barrier.generation.load(std::memory_order_acquire);
+      if (barrier.count.fetch_add(1, std::memory_order_acq_rel) + 1 ==
+          context.worker_num)
       {
-        count.store(0, std::memory_order_release);
-        gen.fetch_add(1, std::memory_order_acq_rel);
+        barrier.count.store(0, std::memory_order_release);
+        barrier.generation.fetch_add(1, std::memory_order_acq_rel);
       }
       else
       {
-        while (gen.load(std::memory_order_acquire) == g)
+        std::size_t spins = 0;
+        while (barrier.generation.load(std::memory_order_acquire) == g)
         {
-          std::this_thread::yield();
+          if ((++spins & 0x3f) == 0)
+          {
+            std::this_thread::yield();
+          }
         }
       }
     }
 
-    void barrier() { barrier_wait(barrier_count, barrier_gen); }
+    void barrier() { barrier_wait(commit_barrier_storage()); }
 
-    // Reset abort_list for a new batch (called by Manager before COMMIT phase)
-    static void reset_abort_list(std::size_t size)
+    // Reset WAW flags for a new batch (called by Manager before COMMIT phase)
+    static void reset_abort_flags(std::size_t worker_count,
+                                  std::size_t transaction_count)
     {
-      abort_list.assign(size, 0);
+      auto &abort_flags_by_worker = abort_flags_storage();
+      abort_flags_by_worker.resize(worker_count);
+      for (auto &flags : abort_flags_by_worker)
+      {
+        flags.assign(transaction_count, 0);
+      }
     }
 
     void commit_transactions()
@@ -739,11 +793,6 @@ namespace aria
     }
 
   private:
-    // shared across workers (single-node). inline to avoid multiple-definition.
-    inline static std::vector<uint8_t> abort_list;
-    inline static std::atomic<uint32_t> barrier_count{0};
-    inline static std::atomic<uint32_t> barrier_gen{0};
-
     DatabaseType &db;
     const ContextType &context;
     std::vector<std::unique_ptr<TransactionType>> &transactions;

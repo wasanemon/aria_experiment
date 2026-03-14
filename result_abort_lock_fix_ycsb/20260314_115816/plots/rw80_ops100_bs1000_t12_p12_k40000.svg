@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<style>
+svg { background: #fff; }
+text { font-family: Arial, sans-serif; fill: #000; }
+.axis { stroke: #333; stroke-width: 1.5; }
+.grid { stroke: #ddd; stroke-width: 1; }
+.series { fill: none; stroke-width: 2.5; }
+.point { stroke: white; stroke-width: 1.5; }
+</style>
+<rect x="0" y="0" width="960" height="540" fill="#fff" />
+<text x="480.0" y="32" text-anchor="middle" font-size="20" font-weight="bold">YCSB average commit: rw=80, ops=100, batch=1000, threads=12, partitions=12, keys=40000</text>
+<line class="grid" x1="80" y1="470.00" x2="930" y2="470.00" />
+<text x="70" y="474.00" text-anchor="end" font-size="12">0</text>
+<line class="grid" x1="80" y1="390.00" x2="930" y2="390.00" />
+<text x="70" y="394.00" text-anchor="end" font-size="12">9,424</text>
+<line class="grid" x1="80" y1="310.00" x2="930" y2="310.00" />
+<text x="70" y="314.00" text-anchor="end" font-size="12">18,847</text>
+<line class="grid" x1="80" y1="230.00" x2="930" y2="230.00" />
+<text x="70" y="234.00" text-anchor="end" font-size="12">28,271</text>
+<line class="grid" x1="80" y1="150.00" x2="930" y2="150.00" />
+<text x="70" y="154.00" text-anchor="end" font-size="12">37,694</text>
+<line class="grid" x1="80" y1="70.00" x2="930" y2="70.00" />
+<text x="70" y="74.00" text-anchor="end" font-size="12">47,118</text>
+<line class="grid" x1="80.00" y1="70" x2="80.00" y2="470" />
+<text x="80.00" y="492" text-anchor="middle" font-size="12">0.0</text>
+<line class="grid" x1="268.89" y1="70" x2="268.89" y2="470" />
+<text x="268.89" y="492" text-anchor="middle" font-size="12">0.2</text>
+<line class="grid" x1="457.78" y1="70" x2="457.78" y2="470" />
+<text x="457.78" y="492" text-anchor="middle" font-size="12">0.4</text>
+<line class="grid" x1="646.67" y1="70" x2="646.67" y2="470" />
+<text x="646.67" y="492" text-anchor="middle" font-size="12">0.6</text>
+<line class="grid" x1="835.56" y1="70" x2="835.56" y2="470" />
+<text x="835.56" y="492" text-anchor="middle" font-size="12">0.8</text>
+<line class="grid" x1="930.00" y1="70" x2="930.00" y2="470" />
+<text x="930.00" y="492" text-anchor="middle" font-size="12">0.9</text>
+<line class="axis" x1="80" y1="470" x2="930" y2="470" />
+<line class="axis" x1="80" y1="70" x2="80" y2="470" />
+<text x="480.0" y="522" text-anchor="middle" font-size="14">zipf</text>
+<text x="24" y="270.0" text-anchor="middle" font-size="14" transform="rotate(-90 24 270.0)">average commit</text>
+<path class="series" stroke="#1f77b4" d="M 80.00 198.12 L 268.89 219.88 L 457.78 310.04 L 646.67 406.79 L 835.56 437.91 L 930.00 454.32" />
+<circle class="point" cx="80.00" cy="198.12" r="4" fill="#1f77b4" />
+<circle class="point" cx="268.89" cy="219.88" r="4" fill="#1f77b4" />
+<circle class="point" cx="457.78" cy="310.04" r="4" fill="#1f77b4" />
+<circle class="point" cx="646.67" cy="406.79" r="4" fill="#1f77b4" />
+<circle class="point" cx="835.56" cy="437.91" r="4" fill="#1f77b4" />
+<circle class="point" cx="930.00" cy="454.32" r="4" fill="#1f77b4" />
+<line x1="750" y1="80" x2="772" y2="80" stroke="#1f77b4" stroke-width="3" />
+<text x="780" y="84" font-size="13">aria_abort_lock_fix</text>
+<path class="series" stroke="#d62728" d="M 80.00 104.94 L 268.89 131.98 L 457.78 236.07 L 646.67 382.20 L 835.56 411.34 L 930.00 434.78" />
+<circle class="point" cx="80.00" cy="104.94" r="4" fill="#d62728" />
+<circle class="point" cx="268.89" cy="131.98" r="4" fill="#d62728" />
+<circle class="point" cx="457.78" cy="236.07" r="4" fill="#d62728" />
+<circle class="point" cx="646.67" cy="382.20" r="4" fill="#d62728" />
+<circle class="point" cx="835.56" cy="411.34" r="4" fill="#d62728" />
+<circle class="point" cx="930.00" cy="434.78" r="4" fill="#d62728" />
+<line x1="750" y1="104" x2="772" y2="104" stroke="#d62728" stroke-width="3" />
+<text x="780" y="108" font-size="13">ariaer_abort_lock_fix</text>
+<path class="series" stroke="#2ca02c" d="M 80.00 108.09 L 268.89 131.89 L 457.78 234.03 L 646.67 382.25 L 835.56 411.63 L 930.00 434.64" />
+<circle class="point" cx="80.00" cy="108.09" r="4" fill="#2ca02c" />
+<circle class="point" cx="268.89" cy="131.89" r="4" fill="#2ca02c" />
+<circle class="point" cx="457.78" cy="234.03" r="4" fill="#2ca02c" />
+<circle class="point" cx="646.67" cy="382.25" r="4" fill="#2ca02c" />
+<circle class="point" cx="835.56" cy="411.63" r="4" fill="#2ca02c" />
+<circle class="point" cx="930.00" cy="434.64" r="4" fill="#2ca02c" />
+<line x1="750" y1="128" x2="772" y2="128" stroke="#2ca02c" stroke-width="3" />
+<text x="780" y="132" font-size="13">ariaer_cache_fix_v2_abort_lock_fix</text>
+</svg>

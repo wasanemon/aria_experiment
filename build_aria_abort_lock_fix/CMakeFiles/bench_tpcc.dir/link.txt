@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread -Wall -Wno-long-long -Wno-unused-variable -Wno-variadic-macros -pedantic -O2 -rdynamic CMakeFiles/bench_tpcc.dir/bench_tpcc.cpp.o -o bench_tpcc  libcommon.a -ljemalloc -lglog -lgflags 

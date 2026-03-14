@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread -Wall -Wno-long-long -Wno-unused-variable -Wno-variadic-macros -pedantic -O2 -rdynamic CMakeFiles/bench_ycsb.dir/bench_ycsb.cpp.o -o bench_ycsb  libcommon.a -ljemalloc -lglog -lgflags 

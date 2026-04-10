@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<style>
+svg { background: #fff; }
+text { font-family: Arial, sans-serif; fill: #000; }
+.axis { stroke: #333; stroke-width: 1.5; }
+.grid { stroke: #ddd; stroke-width: 1; }
+.series { fill: none; stroke-width: 2.5; }
+.point { stroke: white; stroke-width: 1.5; }
+</style>
+<rect x="0" y="0" width="960" height="540" fill="#fff" />
+<text x="480.0" y="32" text-anchor="middle" font-size="18" font-weight="bold">Sleep Experiment: Throughput (rw=80, ops=10, batch=1000)</text>
+<line class="grid" x1="100" y1="470.00" x2="930" y2="470.00" />
+<text x="90" y="474.00" text-anchor="end" font-size="12">0</text>
+<line class="grid" x1="100" y1="390.00" x2="930" y2="390.00" />
+<text x="90" y="394.00" text-anchor="end" font-size="12">173,305</text>
+<line class="grid" x1="100" y1="310.00" x2="930" y2="310.00" />
+<text x="90" y="314.00" text-anchor="end" font-size="12">346,610</text>
+<line class="grid" x1="100" y1="230.00" x2="930" y2="230.00" />
+<text x="90" y="234.00" text-anchor="end" font-size="12">519,915</text>
+<line class="grid" x1="100" y1="150.00" x2="930" y2="150.00" />
+<text x="90" y="154.00" text-anchor="end" font-size="12">693,220</text>
+<line class="grid" x1="100" y1="70.00" x2="930" y2="70.00" />
+<text x="90" y="74.00" text-anchor="end" font-size="12">866,525</text>
+<line class="grid" x1="100.00" y1="70" x2="100.00" y2="470" />
+<text x="100.00" y="492" text-anchor="middle" font-size="12">0</text>
+<line class="grid" x1="183.84" y1="70" x2="183.84" y2="470" />
+<text x="183.84" y="492" text-anchor="middle" font-size="12">0.1</text>
+<line class="grid" x1="267.68" y1="70" x2="267.68" y2="470" />
+<text x="267.68" y="492" text-anchor="middle" font-size="12">0.2</text>
+<line class="grid" x1="351.52" y1="70" x2="351.52" y2="470" />
+<text x="351.52" y="492" text-anchor="middle" font-size="12">0.3</text>
+<line class="grid" x1="435.35" y1="70" x2="435.35" y2="470" />
+<text x="435.35" y="492" text-anchor="middle" font-size="12">0.4</text>
+<line class="grid" x1="519.19" y1="70" x2="519.19" y2="470" />
+<text x="519.19" y="492" text-anchor="middle" font-size="12">0.5</text>
+<line class="grid" x1="603.03" y1="70" x2="603.03" y2="470" />
+<text x="603.03" y="492" text-anchor="middle" font-size="12">0.6</text>
+<line class="grid" x1="686.87" y1="70" x2="686.87" y2="470" />
+<text x="686.87" y="492" text-anchor="middle" font-size="12">0.7</text>
+<line class="grid" x1="770.71" y1="70" x2="770.71" y2="470" />
+<text x="770.71" y="492" text-anchor="middle" font-size="12">0.8</text>
+<line class="grid" x1="854.55" y1="70" x2="854.55" y2="470" />
+<text x="854.55" y="492" text-anchor="middle" font-size="12">0.9</text>
+<line class="grid" x1="930.00" y1="70" x2="930.00" y2="470" />
+<text x="930.00" y="492" text-anchor="middle" font-size="12">0.99</text>
+<line class="axis" x1="100" y1="470" x2="930" y2="470" />
+<line class="axis" x1="100" y1="70" x2="100" y2="470" />
+<text x="480.0" y="522" text-anchor="middle" font-size="14">Zipf coefficient</text>
+<text x="24" y="270.0" text-anchor="middle" font-size="14" transform="rotate(-90 24 270.0)">average commit/sec</text>
+<path class="series" stroke="#1f77b4" d="M 100.00 117.94 L 183.84 239.05 L 267.68 239.15 L 351.52 239.37 L 435.35 240.88 L 519.19 469.56 L 603.03 469.66 L 686.87 469.92 L 770.71 469.97 L 854.55 469.99 L 930.00 469.99" />
+<circle class="point" cx="100.00" cy="117.94" r="4" fill="#1f77b4" />
+<circle class="point" cx="183.84" cy="239.05" r="4" fill="#1f77b4" />
+<circle class="point" cx="267.68" cy="239.15" r="4" fill="#1f77b4" />
+<circle class="point" cx="351.52" cy="239.37" r="4" fill="#1f77b4" />
+<circle class="point" cx="435.35" cy="240.88" r="4" fill="#1f77b4" />
+<circle class="point" cx="519.19" cy="469.56" r="4" fill="#1f77b4" />
+<circle class="point" cx="603.03" cy="469.66" r="4" fill="#1f77b4" />
+<circle class="point" cx="686.87" cy="469.92" r="4" fill="#1f77b4" />
+<circle class="point" cx="770.71" cy="469.97" r="4" fill="#1f77b4" />
+<circle class="point" cx="854.55" cy="469.99" r="4" fill="#1f77b4" />
+<circle class="point" cx="930.00" cy="469.99" r="4" fill="#1f77b4" />
+<line x1="730" y1="80" x2="752" y2="80" stroke="#1f77b4" stroke-width="3" />
+<text x="760" y="84" font-size="13">aria_sleep</text>
+<path class="series" stroke="#d62728" d="M 100.00 106.36 L 183.84 238.96 L 267.68 239.75 L 351.52 240.00 L 435.35 239.75 L 519.19 253.56 L 603.03 315.98 L 686.87 358.72 L 770.71 385.54 L 854.55 402.14 L 930.00 411.83" />
+<circle class="point" cx="100.00" cy="106.36" r="4" fill="#d62728" />
+<circle class="point" cx="183.84" cy="238.96" r="4" fill="#d62728" />
+<circle class="point" cx="267.68" cy="239.75" r="4" fill="#d62728" />
+<circle class="point" cx="351.52" cy="240.00" r="4" fill="#d62728" />
+<circle class="point" cx="435.35" cy="239.75" r="4" fill="#d62728" />
+<circle class="point" cx="519.19" cy="253.56" r="4" fill="#d62728" />
+<circle class="point" cx="603.03" cy="315.98" r="4" fill="#d62728" />
+<circle class="point" cx="686.87" cy="358.72" r="4" fill="#d62728" />
+<circle class="point" cx="770.71" cy="385.54" r="4" fill="#d62728" />
+<circle class="point" cx="854.55" cy="402.14" r="4" fill="#d62728" />
+<circle class="point" cx="930.00" cy="411.83" r="4" fill="#d62728" />
+<line x1="730" y1="104" x2="752" y2="104" stroke="#d62728" stroke-width="3" />
+<text x="760" y="108" font-size="13">ariaer_sleep</text>
+</svg>

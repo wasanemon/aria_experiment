@@ -1,0 +1,366 @@
+@inproceedings{polaris,
+author = {Chen, Youmin and Yu, Xiangyao and Koutris, Paraschos and Arpaci-Dusseau, Andrea C. and Arpaci-Dusseau, Remzi H. and Shu, Jiwu},
+title = {Plor: General Transactions with Predictable, Low Tail Latency},
+year = {2022},
+isbn = {9781450392495},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3514221.3517879},
+doi = {10.1145/3514221.3517879},
+abstract = {We present pessimistic locking and optimistic reading (PLOR), a hybrid concurrency control protocol for in-memory transaction systems that delivers high throughput and low tail latency. PLOR is especially designed for high-contention workloads: for high throughput, transactions are allowed to access records without being blocked by lock conflicts in the read phase; for low tail latency, conflict detection is delayed to the commit phase, where old transactions are always committed first using the timestamps in the lock. We demonstrate the efficacy of this approach under a variety of setups (e.g., stored-procedures, interactive mode, and persistent logging, etc.). Experiments show that PLOR delivers close or comparable throughput to that of Silo and TicToc in stored-procedures, while reducing 99.9th percentile latency by 8.8x to 14.5x. In the interactive processing mode, PLOR even achieves up to 2x higher throughput.},
+booktitle = {Proceedings of the 2022 International Conference on Management of Data},
+pages = {19–33},
+numpages = {15},
+keywords = {two-phase locking, tail latency, concurrency control, OLTP},
+location = {Philadelphia, PA, USA},
+series = {SIGMOD '22}
+}
+
+@inproceedings{mammoth,
+author = {Audrey Cheng and Jack Waudby and Hugo Firth and Natacha Crooks and Ion Stoica},
+title = {Mammoths Are Slow: The Overlooked Transactions of Graph Data},
+year = {2024},
+booktitle = {PVLDB},
+}
+
+@inproceedings{Bang20,
+author = {Bang, Tiemo and May, Norman and Petrov, Ilia and Binnig, Carsten},
+title = {The tale of 1000 Cores: an evaluation of concurrency control on real(ly) large multi-socket hardware},
+year = {2020},
+isbn = {9781450380249},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3399666.3399910},
+doi = {10.1145/3399666.3399910},
+abstract = {In this paper, we set out the goal to revisit the results of "Starring into the Abyss [...] of Concurrency Control with [1000] Cores" [27] and analyse in-memory DBMSs on today's large hardware. Despite the original assumption of the authors, today we do not see single-socket CPUs with 1000 cores. Instead multi-socket hardware made its way into production data centres. Hence, we follow up on this prior work with an evaluation of the characteristics of concurrency control schemes on real production multi-socket hardware with 1568 cores. To our surprise, we made several interesting findings which we report on in this paper.},
+booktitle = {Proceedings of the 16th International Workshop on Data Management on New Hardware},
+articleno = {3},
+numpages = {9},
+location = {Portland, Oregon},
+series = {DaMoN '20}
+}
+
+@article{abyss,
+  author       = {Xiangyao Yu and
+                  George Bezerra and
+                  Andrew Pavlo and
+                  Srinivas Devadas and
+                  Michael Stonebraker},
+  title        = {Staring into the Abyss: An Evaluation of Concurrency Control with
+                  One Thousand Cores},
+  journal      = {Proc. {VLDB} Endow.},
+  volume       = {8},
+  number       = {3},
+  pages        = {209--220},
+  year         = {2014}
+}
+
+@inproceedings{ermia,
+  author       = {Kangnyeon Kim and
+                  Tianzheng Wang and
+                  Ryan Johnson and
+                  Ippokratis Pandis},
+  title        = {{ERMIA:} Fast Memory-Optimized Database System for Heterogeneous Workloads},
+  booktitle    = {{SIGMOD} Conference},
+  pages        = {1675--1687},
+  publisher    = {{ACM}},
+  year         = {2016}
+}
+
+@book{weikum2001,
+author = {Weikum, Gerhard and Vossen, Gottfried},
+title = {Transactional Information Systems: Theory, Algorithms, and the Practice of Concurrency Control and Recovery},
+year = {2001},
+isbn = {9780080519562},
+publisher = {Morgan Kaufmann Publishers Inc.},
+address = {San Francisco, CA, USA},
+abstract = {Transactional Information Systems is the long-awaited, comprehensive work from leading scientists in the transaction processing field. Weikum and Vossen begin with a broad look at the role of transactional technology in today's economic and scientific endeavors, then delve into critical issues faced by all practitioners, presenting today's most effective techniques for controlling concurrent access by multiple clients, recovering from system failures, and coordinating distributed transactions. The authors emphasize formal models that are easily applied across fields, that promise to remain valid as current technologies evolve, and that lend themselves to generalization and extension in the development of new classes of network-centric, functionally rich applications. This book's purpose and achievement is the presentation of the foundations of transactional systems as well as the practical aspects of the field what will help you meet today's challenges.* Provides the most advanced coverage of the topic available anywhere--along with the database background required for you to make full use of this material.* Explores transaction processing both generically as a broadly applicable set of information technology practices and specifically as a group of techniques for meeting the goals of your enterprise.* Contains information essential to developers of Web-based e-Commerce functionality--and a wide range of more "traditional" applications.* Details the algorithms underlying core transaction processing functionality. Table of Contents PART ONE - BACKGROUND AND MOTIVATION Chapter 1 What Is It All About Chapter 2 Computational Models PART TWO - CONCURRENCY CONTROL Chapter 3 Concurrency Control: Notions of Correctness for the Page Model Chapter 4 Concurrency Control Algorithms Chapter 5 Multiversion Concurrency Control Chapter 6 Concurrency Control on Objects: Notions of Correctness Chapter 7 Concurrency Control Algorithms on Objects Chapter 8 Concurrency Control on Relational Databases Chapter 9 Concurrency Control on Search Structures Chapter 10 Implementation and Pragmatic Issues PART THREE - RECOVERY Chapter 11 Transaction Recovery Chapter 12 Crash Recovery: Notion of Correctness Chapter 13 Page Model Crash Recovery Algorithms Chapter 14 Object Model Crash Recovery Chapter 15 Special Issues of Recovery Chapter 16 Media Recovery Chapter 17 Application Recovery PART FOUR - COORDINATION OF DISTRIBUTED TRANSACTIONS Chapter 18 Distributed Concurrency Control Chapter 19 Distributed Transaction Recovery PART FIVE - APPLICATIONS AND FUTURE PERSPECTIVES Chapter 20 What Is Next}
+}
+
+@article{lu2020aria,
+author = {Lu, Yi and Yu, Xiangyao and Cao, Lei and Madden, Samuel},
+title = {Aria: a fast and practical deterministic OLTP database},
+year = {2020},
+issue_date = {August 2020},
+publisher = {VLDB Endowment},
+volume = {13},
+number = {12},
+issn = {2150-8097},
+url = {https://doi.org/10.14778/3407790.3407808},
+doi = {10.14778/3407790.3407808},
+abstract = {Deterministic databases are able to efficiently run transactions across different replicas without coordination. However, existing state-of-the-art deterministic databases require that transaction read/write sets are known before execution, making such systems impractical in many OLTP applications. In this paper, we present Aria, a new distributed and deterministic OLTP database that does not have this limitation. The key idea behind Aria is that it first executes a batch of transactions against the same database snapshot in an execution phase, and then deterministically (without communication between replicas) chooses those that should commit to ensure serializability in a commit phase. We also propose a novel deterministic reordering mechanism that allows Aria to order transactions in a way that reduces the number of conflicts. Our experiments on a cluster of eight nodes show that Aria outperforms systems with conventional nondeterministic concurrency control algorithms and the state-of-the-art deterministic databases by up to a factor of two on two popular benchmarks (YCSB and TPC-C).},
+journal = {Proc. VLDB Endow.},
+month = {jul},
+pages = {2047–2060},
+numpages = {14}
+}
+
+@INPROCEEDINGS{uchida,
+  author={Uchida, Masaru and Kawashima, Hideyuki},
+  booktitle={2023 IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW)}, 
+  title={Making Lock Manager Concurrent for Deterministic Database}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={286-290},
+  keywords={Concurrent computing;Distributed processing;Protocols;Databases;Conferences;Concurrency control;Transaction;Concurrency Control;Determinism;Lock Manager},
+  doi={10.1109/IPDPSW59300.2023.00055}}
+
+@inproceedings{calvin,
+author = {Thomson, Alexander and Diamond, Thaddeus and Weng, Shu-Chun and Ren, Kun and Shao, Philip and Abadi, Daniel J.},
+title = {Calvin: fast distributed transactions for partitioned database systems},
+year = {2012},
+isbn = {9781450312479},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2213836.2213838},
+doi = {10.1145/2213836.2213838},
+abstract = {Many distributed storage systems achieve high data access throughput via partitioning and replication, each system with its own advantages and tradeoffs. In order to achieve high scalability, however, today's systems generally reduce transactional support, disallowing single transactions from spanning multiple partitions. Calvin is a practical transaction scheduling and data replication layer that uses a deterministic ordering guarantee to significantly reduce the normally prohibitive contention costs associated with distributed transactions. Unlike previous deterministic database system prototypes, Calvin supports disk-based storage, scales near-linearly on a cluster of commodity machines, and has no single point of failure. By replicating transaction inputs rather than effects, Calvin is also able to support multiple consistency levels---including Paxos-based strong consistency across geographically distant replicas---at no cost to transactional throughput.},
+booktitle = {Proceedings of the 2012 ACM SIGMOD International Conference on Management of Data},
+pages = {1–12},
+numpages = {12},
+keywords = {determinism, distributed database systems, replication, transaction processing},
+location = {Scottsdale, Arizona, USA},
+series = {SIGMOD '12}
+}
+
+@article{ccbench,
+author = {Tanabe, Takayuki and Hoshino, Takashi and Kawashima, Hideyuki and Tatebe, Osamu},
+title = {An analysis of concurrency control protocols for in-memory databases with CCBench},
+year = {2020},
+issue_date = {September 2020},
+publisher = {VLDB Endowment},
+volume = {13},
+number = {13},
+issn = {2150-8097},
+url = {https://doi.org/10.14778/3424573.3424575},
+doi = {10.14778/3424573.3424575},
+abstract = {This paper presents yet another concurrency control analysis platform, CCBench. CCBench supports seven protocols (Silo, TicToc, MOCC, Cicada, SI, SI with latch-free SSN, 2PL) and seven versatile optimization methods and enables the configuration of seven workload parameters. We analyzed the protocols and optimization methods using various workload parameters and a thread count of 224. Previous studies focused on thread scalability and did not explore the space analyzed here. We classified the optimization methods on the basis of three performance factors: CPU cache, delay on conflict, and version lifetime. Analyses using CCBench and 224 threads, produced six insights. The performance of optimistic concurrency control protocol for a read-only workload rapidly degrades as cardinality increases even without L3 cache misses. (I2) Silo can outperform TicToc for some write-intensive workloads by using invisible reads optimization. (I3) The effectiveness of two approaches to coping with conflict (wait and no-wait) depends on the situation. (I4) OCC reads the same record two or more times if a concurrent transaction interruption occurs, which can improve performance. (I5) Mixing different implementations is inappropriate for deep analysis. (I6) Even a state-of-the-art garbage collection method cannot improve the performance of multi-version protocols if there is a single long transaction mixed into the workload. On the basis of I4, we defined the read phase extension optimization in which an artificial delay is added to the read phase. On the basis of I6, we defined the aggressive garbage collection optimization in which even visible versions are collected. The code for CCBench and all the data in this paper are available online at GitHub.},
+journal = {Proc. VLDB Endow.},
+month = {sep},
+pages = {3531–3544},
+numpages = {14}
+}
+
+@article{faleiro17,
+author = {Faleiro, Jose M. and Abadi, Daniel J. and Hellerstein, Joseph M.},
+title = {High performance transactions via early write visibility},
+year = {2017},
+issue_date = {January 2017},
+publisher = {VLDB Endowment},
+volume = {10},
+number = {5},
+issn = {2150-8097},
+url = {https://doi.org/10.14778/3055540.3055553},
+doi = {10.14778/3055540.3055553},
+abstract = {In order to guarantee recoverable transaction execution, database systems permit a transaction's writes to be observable only at the end of its execution. As a consequence, there is generally a delay between the time a transaction performs a write and the time later transactions are permitted to read it. This delayed write visibility can significantly impact the performance of serializable database systems by reducing concurrency among conflicting transactions.This paper makes the observation that delayed write visibility stems from the fact that database systems can arbitrarily abort transactions at any point during their execution. Accordingly, we make the case for database systems which only abort transactions under a restricted set of conditions, thereby enabling a new recoverability mechanism, early write visibility, which safely makes transactions' writes visible prior to the end of their execution. We design a new serializable concurrency control protocol, piece-wise visibility (PWV), with the explicit goal of enabling early write visibility. We evaluate PWV against state-of-the-art serializable protocols and a highly optimized implementation of read committed, and find that PWV can outperform serializable protocols by an order of magnitude and read committed by 3X on high contention workloads.},
+journal = {Proc. VLDB Endow.},
+month = {jan},
+pages = {613–624},
+numpages = {12}
+}
+
+@article{10.14778/2809974.2809981,
+author = {Faleiro, Jose M. and Abadi, Daniel J.},
+title = {Rethinking serializable multiversion concurrency control},
+year = {2015},
+issue_date = {July 2015},
+publisher = {VLDB Endowment},
+volume = {8},
+number = {11},
+issn = {2150-8097},
+url = {https://doi.org/10.14778/2809974.2809981},
+doi = {10.14778/2809974.2809981},
+abstract = {Multi-versioned database systems have the potential to significantly increase the amount of concurrency in transaction processing because they can avoid read-write conflicts. Unfortunately, the increase in concurrency usually comes at the cost of transaction serializability. If a database user requests full serializability, modern multi-versioned systems significantly constrain read-write concurrency among conflicting transactions and employ expensive synchronization patterns in their design. In main-memory multi-core settings, these additional constraints are so burdensome that multi-versioned systems are often significantly outperformed by single-version systems.We propose Bohm, a new concurrency control protocol for main-memory multi-versioned database systems. Bohm guarantees serializable execution while ensuring that reads never block writes. In addition, Bohm does not require reads to perform any bookkeeping whatsoever, thereby avoiding the overhead of tracking reads via contended writes to shared memory. This leads to excellent scalability and performance in multi-core settings. Bohm has all the above characteristics without performing validation based concurrency control. Instead, it is pessimistic, and is therefore not prone to excessive aborts in the presence of contention. An experimental evaluation shows that Bohm performs well in both high contention and low contention settings, and is able to dramatically outperform state-of-the-art multi-versioned systems despite maintaining the full set of serializability guarantees.},
+journal = {Proc. VLDB Endow.},
+month = {jul},
+pages = {1190–1201},
+numpages = {12}
+}
+
+@article{nemoto2022oze,
+  title={Oze: Decentralized Graph-based Concurrency Control for Real-world Long Transactions on BoM Benchmark},
+  author={Nemoto, Jun and Kambayashi, Takashi and Hoshino, Takashi and Kawashima, Hideyuki},
+  journal={arXiv preprint arXiv:2210.04179},
+  year={2022}
+}
+
+@article{fan2019ocean,
+  title={Ocean vista: gossip-based visibility control for speedy geo-distributed transactions},
+  author={Fan, Hua and Golab, Wojciech},
+  journal={Proceedings of the VLDB Endowment},
+  volume={12},
+  number={11},
+  pages={1471--1484},
+  year={2019},
+  publisher={VLDB Endowment}
+}
+
+@inproceedings{yu2016tictoc,
+  title={Tictoc: Time traveling optimistic concurrency control},
+  author={Yu, Xiangyao and Pavlo, Andrew and Sanchez, Daniel and Devadas, Srinivas},
+  booktitle={Proceedings of the 2016 International Conference on Management of Data},
+  pages={1629--1642},
+  year={2016}
+}
+
+@inproceedings{tu2013speedy,
+  title={Speedy transactions in multicore in-memory databases},
+  author={Tu, Stephen and Zheng, Wenting and Kohler, Eddie and Liskov, Barbara and Madden, Samuel},
+  booktitle={Proceedings of the Twenty-Fourth ACM Symposium on Operating Systems Principles},
+  pages={18--32},
+  year={2013}
+}
+
+@inproceedings{qin2021caracal,
+  title={Caracal: Contention management with deterministic concurrency control},
+  author={Qin, Dai and Brown, Angela Demke and Goel, Ashvin},
+  booktitle={Proceedings of the ACM SIGOPS 28th Symposium on Operating Systems Principles},
+  pages={180--194},
+  year={2021}
+}
+
+@article{agrawal1987distributed,
+  title={Distributed optimistic concurrency control with reduced rollback},
+  author={Agrawal, Divyakant and Bernstein, Arthur J and Gupta, Pankaj and Sengupta, Soumitra},
+  journal={Distributed Computing},
+  volume={2},
+  number={1},
+  pages={45--59},
+  year={1987},
+  publisher={Springer}
+}
+
+@article{kung1981optimistic,
+  title={On optimistic methods for concurrency control},
+  author={Kung, Hsiang-Tsung and Robinson, John T},
+  journal={ACM Transactions on Database Systems (TODS)},
+  volume={6},
+  number={2},
+  pages={213--226},
+  year={1981},
+  publisher={ACM New York, NY, USA}
+}
+
+@inproceedings{nakamori2022decentralization,
+  title={Decentralization of two phase locking based protocols},
+  author={Nakamori, Tatsuhiro and Nemoto, Jun and Hoshino, Takashi and Kawashima, Hideyuki},
+  booktitle={Proceedings of the 31st International Symposium on High-Performance Parallel and Distributed Computing},
+  pages={281--282},
+  year={2022}
+}
+
+
+@article{thomson2010case,
+  title={The case for determinism in database systems},
+  author={Thomson, Alexander and Abadi, Daniel J},
+  journal={Proceedings of the VLDB Endowment},
+  volume={3},
+  number={1-2},
+  pages={70--80},
+  year={2010},
+  publisher={VLDB Endowment}
+}
+
+@article{nakazono2019nwr,
+  title={NWR: Rethinking Thomas Write Rule for Omittable Write Operations},
+  author={Nakazono, Sho and Uchiyama, Hiroyuki and Fujiwara, Yasuhiro and Nakamura, Yasuhiro and Kawashima, Hideyuki},
+  journal={arXiv preprint arXiv:1904.08119},
+  year={2019}
+}
+
+@inproceedings{guo2021releasing,
+  title={Releasing locks as early as you can: Reducing contention of hotspots by violating two-phase locking},
+  author={Guo, Zhihan and Wu, Kan and Yan, Cong and Yu, Xiangyao},
+  booktitle={Proceedings of the 2021 International Conference on Management of Data},
+  pages={658--670},
+  year={2021}
+}
+
+@article{harding2017evaluation,
+  title={An evaluation of distributed concurrency control},
+  author={Harding, Rachael and Van Aken, Dana and Pavlo, Andrew and Stonebraker, Michael},
+  journal={Proceedings of the VLDB Endowment},
+  volume={10},
+  number={5},
+  pages={553--564},
+  year={2017},
+  publisher={VLDB Endowment}
+}
+
+@inproceedings{lim2017cicada,
+  title={Cicada: Dependably fast multi-core in-memory transactions},
+  author={Lim, Hyeontaek and Kaminsky, Michael and Andersen, David G},
+  booktitle={Proceedings of the 2017 ACM International Conference on Management of Data},
+  pages={21--35},
+  year={2017}
+}
+
+@article{ren2014evaluation,
+  title={An evaluation of the advantages and disadvantages of deterministic database systems},
+  author={Ren, Kun and Thomson, Alexander and Abadi, Daniel J},
+  journal={Proceedings of the VLDB Endowment},
+  volume={7},
+  number={10},
+  pages={821--832},
+  year={2014},
+  publisher={VLDB Endowment}
+}
+
+@article{10.1145/320071.320076,
+author = {Thomas, Robert H.},
+title = {A Majority consensus approach to concurrency control for multiple copy databases},
+year = {1979},
+issue_date = {June 1979},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {4},
+number = {2},
+issn = {0362-5915},
+url = {https://doi.org/10.1145/320071.320076},
+doi = {10.1145/320071.320076},
+abstract = {A “majority consensus” algorithm which represents a new solution to the update synchronization problem for multiple copy databases is presented. The algorithm embodies distributed control and can function effectively in the presence of communication and database site outages. The correctness of the algorithm is demonstrated and the cost of using it is analyzed. Several examples that illustrate aspects of the algorithm operation are included in the Appendix.},
+journal = {ACM Trans. Database Syst.},
+month = jun,
+pages = {180–209},
+numpages = {30},
+keywords = {update synchronization, multiprocess systems, distributed databases, distributed control, distributed computation, concurrency control, computer networks, clock synchronization}
+}
+
+@inproceedings{lai2023primo,
+  author = {Lai, Ziliang and Fan, Hua and Zhou, Wenchao and Ma, Zhanfeng and Peng, Xiang and Li, Feifei and Lo, Eric},
+  title = {Knock Out 2PC with Practicality Intact: a High-performance and General Distributed Transaction Protocol},
+  year = {2023},
+  publisher = {IEEE},
+  doi = {10.1109/ICDE55515.2023.00179},
+  url = {https://doi.org/10.1109/ICDE55515.2023.00179},
+  booktitle = {2023 IEEE 39th International Conference on Data Engineering (ICDE)},
+  pages = {2317--2331}
+}
+
+@misc{lu2020aria_github,
+  author       = {Lu, Yi and Yu, Xiangyao and Cao, Lei and Madden, Samuel},
+  title        = {Aria: A Fast and Practical Deterministic OLTP Database},
+  howpublished = {\url{https://github.com/luyi0619/aria}},
+  note         = {GitHub repository, accessed 2026-03-31},
+  year         = {2020}
+}
+
+@article{10.1007/s11704-023-2605-z,
+author = {Wang, Xinyuan and Peng, Yun and Huang, Hejiao},
+title = {Gria: an efficient deterministic concurrency control protocol},
+year = {2023},
+issue_date = {Apr 2024},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+volume = {18},
+number = {4},
+issn = {2095-2228},
+url = {https://doi.org/10.1007/s11704-023-2605-z},
+doi = {10.1007/s11704-023-2605-z},
+abstract = {Deterministic databases are able to reduce coordination costs in a replication. This property has fostered a significant interest in the design of efficient deterministic concurrency control protocols. However, the state-of-the-art deterministic concurrency control protocol Aria has three issues. First, it is impractical to configure a suitable batch size when the read-write set is unknown. Second, Aria running in low-concurrency scenarios, e.g., a single-thread scenario, suffers from the same conflicts as running in high-concurrency scenarios. Third, the single-version schema brings write-after-write conflicts.To address these issues, we propose Gria, an efficient deterministic concurrency control protocol. Gria has the following properties. First, the batch size of Gria is auto-scaling. Second, Gria’s conflict probability in low-concurrency scenarios is lower than that in high-concurrency scenarios. Third, Gria has no write-after-write conflicts by adopting a multi-version structure. To further reduce conflicts, we propose two optimizations: a reordering mechanism as well as a rechecking strategy. The evaluation result on two popular benchmarks shows that Gria outperforms Aria by 13x.},
+journal = {Front. Comput. Sci.},
+month = dec,
+numpages = {13},
+keywords = {deterministic concurrency control, transaction processing}
+}

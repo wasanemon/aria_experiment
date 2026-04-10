@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<style>
+svg { background: #fff; }
+text { font-family: Arial, sans-serif; fill: #000; }
+.axis { stroke: #333; stroke-width: 1.5; }
+.grid { stroke: #ddd; stroke-width: 1; }
+.series { fill: none; stroke-width: 2.5; }
+.point { stroke: white; stroke-width: 1.5; }
+</style>
+<rect x="0" y="0" width="960" height="540" fill="#fff" />
+<text x="480.0" y="32" text-anchor="middle" font-size="20" font-weight="bold">YCSB average batch time: rw=80, ops=100, batch=1000, threads=12, partitions=12, keys=40000</text>
+<line class="grid" x1="90" y1="470.00" x2="870" y2="470.00" />
+<text x="80" y="474.00" text-anchor="end" font-size="12">6.55</text>
+<text x="880" y="474.00" text-anchor="start" font-size="12">0.008</text>
+<line class="grid" x1="90" y1="390.00" x2="870" y2="390.00" />
+<text x="80" y="394.00" text-anchor="end" font-size="12">7.12</text>
+<text x="880" y="394.00" text-anchor="start" font-size="12">0.124</text>
+<line class="grid" x1="90" y1="310.00" x2="870" y2="310.00" />
+<text x="80" y="314.00" text-anchor="end" font-size="12">7.70</text>
+<text x="880" y="314.00" text-anchor="start" font-size="12">0.240</text>
+<line class="grid" x1="90" y1="230.00" x2="870" y2="230.00" />
+<text x="80" y="234.00" text-anchor="end" font-size="12">8.27</text>
+<text x="880" y="234.00" text-anchor="start" font-size="12">0.356</text>
+<line class="grid" x1="90" y1="150.00" x2="870" y2="150.00" />
+<text x="80" y="154.00" text-anchor="end" font-size="12">8.85</text>
+<text x="880" y="154.00" text-anchor="start" font-size="12">0.473</text>
+<line class="grid" x1="90" y1="70.00" x2="870" y2="70.00" />
+<text x="80" y="74.00" text-anchor="end" font-size="12">9.43</text>
+<text x="880" y="74.00" text-anchor="start" font-size="12">0.589</text>
+<line class="grid" x1="90.00" y1="70" x2="90.00" y2="470" />
+<text x="90.00" y="492" text-anchor="middle" font-size="12">0</text>
+<line class="grid" x1="168.79" y1="70" x2="168.79" y2="470" />
+<text x="168.79" y="492" text-anchor="middle" font-size="12">0.1</text>
+<line class="grid" x1="247.58" y1="70" x2="247.58" y2="470" />
+<text x="247.58" y="492" text-anchor="middle" font-size="12">0.2</text>
+<line class="grid" x1="326.36" y1="70" x2="326.36" y2="470" />
+<text x="326.36" y="492" text-anchor="middle" font-size="12">0.3</text>
+<line class="grid" x1="405.15" y1="70" x2="405.15" y2="470" />
+<text x="405.15" y="492" text-anchor="middle" font-size="12">0.4</text>
+<line class="grid" x1="483.94" y1="70" x2="483.94" y2="470" />
+<text x="483.94" y="492" text-anchor="middle" font-size="12">0.5</text>
+<line class="grid" x1="562.73" y1="70" x2="562.73" y2="470" />
+<text x="562.73" y="492" text-anchor="middle" font-size="12">0.6</text>
+<line class="grid" x1="641.52" y1="70" x2="641.52" y2="470" />
+<text x="641.52" y="492" text-anchor="middle" font-size="12">0.7</text>
+<line class="grid" x1="720.30" y1="70" x2="720.30" y2="470" />
+<text x="720.30" y="492" text-anchor="middle" font-size="12">0.8</text>
+<line class="grid" x1="799.09" y1="70" x2="799.09" y2="470" />
+<text x="799.09" y="492" text-anchor="middle" font-size="12">0.9</text>
+<line class="grid" x1="870.00" y1="70" x2="870.00" y2="470" />
+<text x="870.00" y="492" text-anchor="middle" font-size="12">0.99</text>
+<line class="axis" x1="90" y1="470" x2="870" y2="470" />
+<line class="axis" x1="90" y1="70" x2="90" y2="470" />
+<line class="axis" x1="870" y1="70" x2="870" y2="470" />
+<text x="480.0" y="522" text-anchor="middle" font-size="14">zipf</text>
+<text x="24" y="270.0" text-anchor="middle" font-size="14" transform="rotate(-90 24 270.0)">average batch time (ms)</text>
+<text x="936" y="270.0" text-anchor="middle" font-size="14" transform="rotate(90 936 270.0)">aria_time_experiment - ariaer_cache_fix_v2_time_experiment batch time (ms)</text>
+<path class="series" stroke="#1f77b4" d="M 90.00 211.01 L 168.79 106.59 L 247.58 103.33 L 326.36 110.51 L 405.15 123.50 L 483.94 150.05 L 562.73 184.00 L 641.52 226.11 L 720.30 277.86 L 799.09 328.71 L 870.00 372.82" />
+<circle class="point" cx="90.00" cy="211.01" r="4" fill="#1f77b4" />
+<circle class="point" cx="168.79" cy="106.59" r="4" fill="#1f77b4" />
+<circle class="point" cx="247.58" cy="103.33" r="4" fill="#1f77b4" />
+<circle class="point" cx="326.36" cy="110.51" r="4" fill="#1f77b4" />
+<circle class="point" cx="405.15" cy="123.50" r="4" fill="#1f77b4" />
+<circle class="point" cx="483.94" cy="150.05" r="4" fill="#1f77b4" />
+<circle class="point" cx="562.73" cy="184.00" r="4" fill="#1f77b4" />
+<circle class="point" cx="641.52" cy="226.11" r="4" fill="#1f77b4" />
+<circle class="point" cx="720.30" cy="277.86" r="4" fill="#1f77b4" />
+<circle class="point" cx="799.09" cy="328.71" r="4" fill="#1f77b4" />
+<circle class="point" cx="870.00" cy="372.82" r="4" fill="#1f77b4" />
+<line x1="620" y1="80" x2="642" y2="80" stroke="#1f77b4" stroke-width="3" />
+<text x="650" y="84" font-size="13">aria_time_experiment</text>
+<path class="series" stroke="#d62728" d="M 90.00 218.83 L 168.79 122.54 L 247.58 124.71 L 326.36 130.61 L 405.15 151.54 L 483.94 189.62 L 562.73 239.77 L 641.52 296.97 L 720.30 352.99 L 799.09 401.58 L 870.00 436.67" />
+<circle class="point" cx="90.00" cy="218.83" r="4" fill="#d62728" />
+<circle class="point" cx="168.79" cy="122.54" r="4" fill="#d62728" />
+<circle class="point" cx="247.58" cy="124.71" r="4" fill="#d62728" />
+<circle class="point" cx="326.36" cy="130.61" r="4" fill="#d62728" />
+<circle class="point" cx="405.15" cy="151.54" r="4" fill="#d62728" />
+<circle class="point" cx="483.94" cy="189.62" r="4" fill="#d62728" />
+<circle class="point" cx="562.73" cy="239.77" r="4" fill="#d62728" />
+<circle class="point" cx="641.52" cy="296.97" r="4" fill="#d62728" />
+<circle class="point" cx="720.30" cy="352.99" r="4" fill="#d62728" />
+<circle class="point" cx="799.09" cy="401.58" r="4" fill="#d62728" />
+<circle class="point" cx="870.00" cy="436.67" r="4" fill="#d62728" />
+<line x1="620" y1="104" x2="642" y2="104" stroke="#d62728" stroke-width="3" />
+<text x="650" y="108" font-size="13">ariaer_cache_fix_v2_time_experiment</text>
+<path class="series" stroke="#2ca02c" d="M 90.00 436.67 L 168.79 396.42 L 247.58 369.54 L 326.36 375.86 L 405.15 336.56 L 483.94 279.42 L 562.73 199.23 L 641.52 124.49 L 720.30 103.33 L 799.09 114.54 L 870.00 159.21" stroke-dasharray="6 4" />
+<circle class="point" cx="90.00" cy="436.67" r="4" fill="#2ca02c" />
+<circle class="point" cx="168.79" cy="396.42" r="4" fill="#2ca02c" />
+<circle class="point" cx="247.58" cy="369.54" r="4" fill="#2ca02c" />
+<circle class="point" cx="326.36" cy="375.86" r="4" fill="#2ca02c" />
+<circle class="point" cx="405.15" cy="336.56" r="4" fill="#2ca02c" />
+<circle class="point" cx="483.94" cy="279.42" r="4" fill="#2ca02c" />
+<circle class="point" cx="562.73" cy="199.23" r="4" fill="#2ca02c" />
+<circle class="point" cx="641.52" cy="124.49" r="4" fill="#2ca02c" />
+<circle class="point" cx="720.30" cy="103.33" r="4" fill="#2ca02c" />
+<circle class="point" cx="799.09" cy="114.54" r="4" fill="#2ca02c" />
+<circle class="point" cx="870.00" cy="159.21" r="4" fill="#2ca02c" />
+<line x1="620" y1="128" x2="642" y2="128" stroke="#2ca02c" stroke-width="3" stroke-dasharray="6 4" />
+<text x="650" y="132" font-size="13">aria_time_experiment - ariaer_cache_fix_v2_time_experiment batch time (ms)</text>
+</svg>

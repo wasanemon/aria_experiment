@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<style>
+svg { background: #fff; }
+text { font-family: Arial, sans-serif; fill: #000; }
+.axis { stroke: #333; stroke-width: 1.5; }
+.grid { stroke: #ddd; stroke-width: 1; }
+.series { fill: none; stroke-width: 2.5; }
+.point { stroke: white; stroke-width: 1.5; }
+</style>
+<rect x="0" y="0" width="960" height="540" fill="#fff" />
+<text x="480.0" y="32" text-anchor="middle" font-size="20" font-weight="bold">YCSB average commit: rw=80, ops=10, batch=1000, zipf=0.999, partitions=12, keys=40000</text>
+<line class="grid" x1="80" y1="470.00" x2="930" y2="470.00" />
+<text x="70" y="474.00" text-anchor="end" font-size="12">0</text>
+<line class="grid" x1="80" y1="390.00" x2="930" y2="390.00" />
+<text x="70" y="394.00" text-anchor="end" font-size="12">33,675</text>
+<line class="grid" x1="80" y1="310.00" x2="930" y2="310.00" />
+<text x="70" y="314.00" text-anchor="end" font-size="12">67,350</text>
+<line class="grid" x1="80" y1="230.00" x2="930" y2="230.00" />
+<text x="70" y="234.00" text-anchor="end" font-size="12">101,025</text>
+<line class="grid" x1="80" y1="150.00" x2="930" y2="150.00" />
+<text x="70" y="154.00" text-anchor="end" font-size="12">134,700</text>
+<line class="grid" x1="80" y1="70.00" x2="930" y2="70.00" />
+<text x="70" y="74.00" text-anchor="end" font-size="12">168,376</text>
+<line class="grid" x1="80.00" y1="70" x2="80.00" y2="470" />
+<text x="80.00" y="492" text-anchor="middle" font-size="12">1</text>
+<line class="grid" x1="123.22" y1="70" x2="123.22" y2="470" />
+<text x="123.22" y="492" text-anchor="middle" font-size="12">4</text>
+<line class="grid" x1="180.85" y1="70" x2="180.85" y2="470" />
+<text x="180.85" y="492" text-anchor="middle" font-size="12">8</text>
+<line class="grid" x1="238.47" y1="70" x2="238.47" y2="470" />
+<text x="238.47" y="492" text-anchor="middle" font-size="12">12</text>
+<line class="grid" x1="296.10" y1="70" x2="296.10" y2="470" />
+<text x="296.10" y="492" text-anchor="middle" font-size="12">16</text>
+<line class="grid" x1="353.73" y1="70" x2="353.73" y2="470" />
+<text x="353.73" y="492" text-anchor="middle" font-size="12">20</text>
+<line class="grid" x1="411.36" y1="70" x2="411.36" y2="470" />
+<text x="411.36" y="492" text-anchor="middle" font-size="12">24</text>
+<line class="grid" x1="468.98" y1="70" x2="468.98" y2="470" />
+<text x="468.98" y="492" text-anchor="middle" font-size="12">28</text>
+<line class="grid" x1="526.61" y1="70" x2="526.61" y2="470" />
+<text x="526.61" y="492" text-anchor="middle" font-size="12">32</text>
+<line class="grid" x1="584.24" y1="70" x2="584.24" y2="470" />
+<text x="584.24" y="492" text-anchor="middle" font-size="12">36</text>
+<line class="grid" x1="641.86" y1="70" x2="641.86" y2="470" />
+<text x="641.86" y="492" text-anchor="middle" font-size="12">40</text>
+<line class="grid" x1="699.49" y1="70" x2="699.49" y2="470" />
+<text x="699.49" y="492" text-anchor="middle" font-size="12">44</text>
+<line class="grid" x1="757.12" y1="70" x2="757.12" y2="470" />
+<text x="757.12" y="492" text-anchor="middle" font-size="12">48</text>
+<line class="grid" x1="814.75" y1="70" x2="814.75" y2="470" />
+<text x="814.75" y="492" text-anchor="middle" font-size="12">52</text>
+<line class="grid" x1="872.37" y1="70" x2="872.37" y2="470" />
+<text x="872.37" y="492" text-anchor="middle" font-size="12">56</text>
+<line class="grid" x1="930.00" y1="70" x2="930.00" y2="470" />
+<text x="930.00" y="492" text-anchor="middle" font-size="12">60</text>
+<line class="axis" x1="80" y1="470" x2="930" y2="470" />
+<line class="axis" x1="80" y1="70" x2="80" y2="470" />
+<text x="480.0" y="522" text-anchor="middle" font-size="14">threads</text>
+<text x="24" y="270.0" text-anchor="middle" font-size="14" transform="rotate(-90 24 270.0)">average commit</text>
+<path class="series" stroke="#1f77b4" d="M 80.00 467.48 L 123.22 418.33 L 180.85 330.14 L 238.47 224.90 L 296.10 177.36 L 353.73 135.14 L 411.36 153.16 L 468.98 189.61 L 526.61 248.98 L 584.24 223.87 L 641.86 214.51 L 699.49 217.28 L 757.12 215.38 L 814.75 189.78 L 872.37 201.49 L 930.00 231.40" />
+<circle class="point" cx="80.00" cy="467.48" r="4" fill="#1f77b4" />
+<circle class="point" cx="123.22" cy="418.33" r="4" fill="#1f77b4" />
+<circle class="point" cx="180.85" cy="330.14" r="4" fill="#1f77b4" />
+<circle class="point" cx="238.47" cy="224.90" r="4" fill="#1f77b4" />
+<circle class="point" cx="296.10" cy="177.36" r="4" fill="#1f77b4" />
+<circle class="point" cx="353.73" cy="135.14" r="4" fill="#1f77b4" />
+<circle class="point" cx="411.36" cy="153.16" r="4" fill="#1f77b4" />
+<circle class="point" cx="468.98" cy="189.61" r="4" fill="#1f77b4" />
+<circle class="point" cx="526.61" cy="248.98" r="4" fill="#1f77b4" />
+<circle class="point" cx="584.24" cy="223.87" r="4" fill="#1f77b4" />
+<circle class="point" cx="641.86" cy="214.51" r="4" fill="#1f77b4" />
+<circle class="point" cx="699.49" cy="217.28" r="4" fill="#1f77b4" />
+<circle class="point" cx="757.12" cy="215.38" r="4" fill="#1f77b4" />
+<circle class="point" cx="814.75" cy="189.78" r="4" fill="#1f77b4" />
+<circle class="point" cx="872.37" cy="201.49" r="4" fill="#1f77b4" />
+<circle class="point" cx="930.00" cy="231.40" r="4" fill="#1f77b4" />
+<line x1="750" y1="80" x2="772" y2="80" stroke="#1f77b4" stroke-width="3" />
+<text x="780" y="84" font-size="13">aria_abort_lock_fix</text>
+<path class="series" stroke="#d62728" d="M 80.00 466.78 L 123.22 405.86 L 180.85 298.38 L 238.47 170.10 L 296.10 116.57 L 353.73 125.54 L 411.36 106.13 L 468.98 152.73 L 526.61 216.69 L 584.24 203.74 L 641.86 166.72 L 699.49 174.18 L 757.12 169.88 L 814.75 148.28 L 872.37 184.93 L 930.00 163.29" />
+<circle class="point" cx="80.00" cy="466.78" r="4" fill="#d62728" />
+<circle class="point" cx="123.22" cy="405.86" r="4" fill="#d62728" />
+<circle class="point" cx="180.85" cy="298.38" r="4" fill="#d62728" />
+<circle class="point" cx="238.47" cy="170.10" r="4" fill="#d62728" />
+<circle class="point" cx="296.10" cy="116.57" r="4" fill="#d62728" />
+<circle class="point" cx="353.73" cy="125.54" r="4" fill="#d62728" />
+<circle class="point" cx="411.36" cy="106.13" r="4" fill="#d62728" />
+<circle class="point" cx="468.98" cy="152.73" r="4" fill="#d62728" />
+<circle class="point" cx="526.61" cy="216.69" r="4" fill="#d62728" />
+<circle class="point" cx="584.24" cy="203.74" r="4" fill="#d62728" />
+<circle class="point" cx="641.86" cy="166.72" r="4" fill="#d62728" />
+<circle class="point" cx="699.49" cy="174.18" r="4" fill="#d62728" />
+<circle class="point" cx="757.12" cy="169.88" r="4" fill="#d62728" />
+<circle class="point" cx="814.75" cy="148.28" r="4" fill="#d62728" />
+<circle class="point" cx="872.37" cy="184.93" r="4" fill="#d62728" />
+<circle class="point" cx="930.00" cy="163.29" r="4" fill="#d62728" />
+<line x1="750" y1="104" x2="772" y2="104" stroke="#d62728" stroke-width="3" />
+<text x="780" y="108" font-size="13">ariaer_cache_fix_v2_abort_lock_fix</text>
+</svg>

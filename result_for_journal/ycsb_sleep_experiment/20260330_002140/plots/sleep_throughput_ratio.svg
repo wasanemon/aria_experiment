@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<style>
+svg { background: #fff; }
+text { font-family: Arial, sans-serif; fill: #000; }
+.axis { stroke: #333; stroke-width: 1.5; }
+.grid { stroke: #ddd; stroke-width: 1; }
+.series { fill: none; stroke-width: 2.5; }
+.point { stroke: white; stroke-width: 1.5; }
+</style>
+<rect x="0" y="0" width="960" height="540" fill="#fff" />
+<text x="480.0" y="32" text-anchor="middle" font-size="18" font-weight="bold">Sleep Experiment: Throughput Ratio (AriaER / Aria)</text>
+<line class="grid" x1="100" y1="470.00" x2="930" y2="470.00" />
+<text x="90" y="474.00" text-anchor="end" font-size="12">0</text>
+<line class="grid" x1="100" y1="390.00" x2="930" y2="390.00" />
+<text x="90" y="394.00" text-anchor="end" font-size="12">1,800</text>
+<line class="grid" x1="100" y1="310.00" x2="930" y2="310.00" />
+<text x="90" y="314.00" text-anchor="end" font-size="12">3,601</text>
+<line class="grid" x1="100" y1="230.00" x2="930" y2="230.00" />
+<text x="90" y="234.00" text-anchor="end" font-size="12">5,401</text>
+<line class="grid" x1="100" y1="150.00" x2="930" y2="150.00" />
+<text x="90" y="154.00" text-anchor="end" font-size="12">7,201</text>
+<line class="grid" x1="100" y1="70.00" x2="930" y2="70.00" />
+<text x="90" y="74.00" text-anchor="end" font-size="12">9,001</text>
+<line class="grid" x1="100.00" y1="70" x2="100.00" y2="470" />
+<text x="100.00" y="492" text-anchor="middle" font-size="12">0</text>
+<line class="grid" x1="183.84" y1="70" x2="183.84" y2="470" />
+<text x="183.84" y="492" text-anchor="middle" font-size="12">0.1</text>
+<line class="grid" x1="267.68" y1="70" x2="267.68" y2="470" />
+<text x="267.68" y="492" text-anchor="middle" font-size="12">0.2</text>
+<line class="grid" x1="351.52" y1="70" x2="351.52" y2="470" />
+<text x="351.52" y="492" text-anchor="middle" font-size="12">0.3</text>
+<line class="grid" x1="435.35" y1="70" x2="435.35" y2="470" />
+<text x="435.35" y="492" text-anchor="middle" font-size="12">0.4</text>
+<line class="grid" x1="519.19" y1="70" x2="519.19" y2="470" />
+<text x="519.19" y="492" text-anchor="middle" font-size="12">0.5</text>
+<line class="grid" x1="603.03" y1="70" x2="603.03" y2="470" />
+<text x="603.03" y="492" text-anchor="middle" font-size="12">0.6</text>
+<line class="grid" x1="686.87" y1="70" x2="686.87" y2="470" />
+<text x="686.87" y="492" text-anchor="middle" font-size="12">0.7</text>
+<line class="grid" x1="770.71" y1="70" x2="770.71" y2="470" />
+<text x="770.71" y="492" text-anchor="middle" font-size="12">0.8</text>
+<line class="grid" x1="854.55" y1="70" x2="854.55" y2="470" />
+<text x="854.55" y="492" text-anchor="middle" font-size="12">0.9</text>
+<line class="grid" x1="930.00" y1="70" x2="930.00" y2="470" />
+<text x="930.00" y="492" text-anchor="middle" font-size="12">0.99</text>
+<line class="axis" x1="100" y1="470" x2="930" y2="470" />
+<line class="axis" x1="100" y1="70" x2="100" y2="470" />
+<text x="480.0" y="522" text-anchor="middle" font-size="14">Zipf coefficient</text>
+<text x="24" y="270.0" text-anchor="middle" font-size="14" transform="rotate(-90 24 270.0)">throughput ratio</text>
+<path class="series" stroke="#1f77b4" d="M 100.00 469.95 L 183.84 469.96 L 267.68 469.96 L 351.52 469.96 L 435.35 469.96 L 519.19 447.95 L 603.03 449.59 L 686.87 410.42 L 770.71 353.18 L 854.55 215.80 L 930.00 106.36" />
+<circle class="point" cx="100.00" cy="469.95" r="4" fill="#1f77b4" />
+<circle class="point" cx="183.84" cy="469.96" r="4" fill="#1f77b4" />
+<circle class="point" cx="267.68" cy="469.96" r="4" fill="#1f77b4" />
+<circle class="point" cx="351.52" cy="469.96" r="4" fill="#1f77b4" />
+<circle class="point" cx="435.35" cy="469.96" r="4" fill="#1f77b4" />
+<circle class="point" cx="519.19" cy="447.95" r="4" fill="#1f77b4" />
+<circle class="point" cx="603.03" cy="449.59" r="4" fill="#1f77b4" />
+<circle class="point" cx="686.87" cy="410.42" r="4" fill="#1f77b4" />
+<circle class="point" cx="770.71" cy="353.18" r="4" fill="#1f77b4" />
+<circle class="point" cx="854.55" cy="215.80" r="4" fill="#1f77b4" />
+<circle class="point" cx="930.00" cy="106.36" r="4" fill="#1f77b4" />
+<line x1="730" y1="80" x2="752" y2="80" stroke="#1f77b4" stroke-width="3" />
+<text x="760" y="84" font-size="13">AriaER / Aria</text>
+</svg>

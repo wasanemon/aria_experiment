@@ -1,0 +1,109 @@
+
+\documentclass[submit]{ipsj}
+%\documentclass{ipsj}
+
+\usepackage{graphicx}
+\usepackage{latexsym}
+
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+\def\|{\verb|}
+
+\setcounter{巻数}{59}
+\setcounter{号数}{1}
+\setcounter{page}{1}
+
+
+\受付{2016}{3}{4}
+\再受付{2015}{7}{16}   %省略可能
+\再再受付{2015}{7}{20} %省略可能
+\再再受付{2015}{11}{20} %省略可能
+\採録{2016}{8}{1}
+
+
+
+
+\begin{document}
+
+
+\title{AriaER:早期依存解決による決定論的並行性制御法Ariaの高速化}
+
+\etitle{How to Prepare Your Paper for IPSJ Journal \\
+(ipsj.cls version 2.01)}
+
+\affiliate{IPSJ}{情報処理学会\\
+IPSJ, Chiyoda, Tokyo 101--0062, Japan}
+
+
+\paffiliate{JU}{情報処理大学\\
+Johoshori University}
+
+\author{情報 太郎}{Taro Joho}{IPSJ}[joho.taro@ipsj.or.jp]
+\author{処理 花子}{Hanako Shori}{IPSJ}
+\author{学会 次郎}{Jiro Gakkai}{IPSJ,JU}[gakkai.jiro@ipsj.or.jp]
+
+\begin{abstract}
+本研究では，決定論的並行性制御法の一つとして知られるAriaの性能を向上させるために，新しい手法を提案する.従来のAriaでは，依存関係の確認が一度で行われており，これが不要なアボートや操作を発生させていた.我々が考案した手法では，依存関係の確認を二段階に分けて行い，依存の早期解決をする.これにより，スケジュール空間を拡大し，不要な操作を省略することを可能にした.提案手法を評価するために，既存手法のAria との比較実験も行った.実験の結果，高競合のワークロードにおいて，提案手法は既存手法よりも高い性能を示し，その性能差は最大で??倍であることがわかった.
+\end{abstract}
+
+
+\begin{jkeyword}
+情報処理学会論文誌ジャーナル，\LaTeX，スタイルファイル，べからず集
+\end{jkeyword}
+
+\begin{eabstract}
+This document is a guide to prepare a draft for submitting to IPSJ
+Journal, and the final camera-ready manuscript of a paper to appear in
+IPSJ Journal, using {\LaTeX} and special style files.  Since this
+document itself is produced with the style files, it will help you to
+refer its source file which is distributed with the style files.
+\end{eabstract}
+
+\begin{ekeyword}
+IPSJ Journal, \LaTeX, style files, ``Dos and Don'ts'' list
+\end{ekeyword}
+
+\maketitle
+
+%1
+\section{はじめに}
+\subsection{動機}
+分散システムにおいて，複数のレプリカを同じ状態に保つことは，耐障害性の観点から重要な課題である．データベーストランザクション並行性制御手法の多くは非決定的な順序で実行を行うため，複数のレプリカ上で同一のトランザクション集合を実行したとしても，レプリカ間で同一の結果にはならない．このような並行性制御手法の元では，レプリカ間の整合性を保つための仕組みと通信が必要となる．本研究が対象とする決定論的並行性制御法は，トランザクションが一意な結果を生成することを保証する．これにより，決定論的並行性制御法は，通信コストを必要とせず，より効率的なシステムの構築を可能にする．Ariaは決定論的並行性制御法の一つであり，バッチ処理を用い，効率的にトランザクションを実行できる．しかし，Ariaはその実行において，無駄なアボートや不要な操作を発生させることがある．本研究の動機は，Ariaのアルゴリズムを改善することによって，このような無駄を削減することにある．
+
+\subsection{問題点}
+Ariaは，バッチごとにトランザクションを処理し，バッチ内のトランザクションは同じデータベーススナップショットに対して読み込み操作を行う．また，Ariaは，トランザクション間のWrite-after-Write(WAW)，Read-after-Write(RAW)，Write-after-Read(WAR)の３つの依存関係を調べることで，アボートするトランザクションを決定する．
+図{fig:problem}のような，3つのトランザクション$t_1$，$t_2$，$t_3$を例に説明する．$t_2$は$t_1$が書き込むデータ項目xに書き込み操作を実行しているため，WAW依存関係によってアボートとなる．$t_3$は$t_2$が書き込むデータ項目zを読み込むことになるため，RAW依存関係を持ち，また$t_2$の読み込んだデータ項目yに書き込みを実行するため，WAR依存関係を持つので，2つの依存関係によってアボートとなる．この場合，コミットできるトランザクションは$t_1$のみである．
+この例におけるAriaの依存関係解析が引き起こす問題点として，$t_3$のアボートが本来不要であることが挙げられる．Ariaでは，3つの依存関係解析，それによるアボートの判断を一度に行うため，あるトランザクションのWAW依存によるアボートを，他のトランザクションは観測できない．その結果，図{fig:problem}に示すような状況では，WAW依存関係によってアボートする$t_2$の操作によって，$t_3$の不要なアボートが発生してしまう．
+
+\subsection{貢献}
+本研究では，図{fig:solution}に示すような改善手法を提案する．改善後の手法では，3つの依存関係の確認を次のように，二段階に分けて行う．
+\begin{enumerate}
+    \item WAW 依存関係
+    \item WAR，RAW 依存関係
+\end{enumerate}
+この手法では，WAW 依存関係によってアボートしたトランザクションの読み込み，書き込みを，2)WAR,RAW依存関係の確認において考慮しない．これにより、図{fig:problem}に示すような状況では，$t_3$は$t_2$の読み込み，書き込みを無視できるため，$t_1$に加えて$t_3$もコミット可能になる．また，$t_2$はWAW依存関係によってアボートすることが分かった場合，その後の操作を省略できるため，不要な操作コストも削減される．
+
+
+\section{予備知識}
+\subsubsection{決定論的並行性制御法}
+
+\subsubsection{Aria}
+
+\subsubsection{Ariaの問題点}
+
+\section{提案手法 : AriaER}
+\subsection{最適化手法}
+\subsection{実例}
+\subsection{アルゴリズム}
+
+\section{性能評価}
+\subsection{実験環境}
+\subsection{仮説}
+\subsection{実験条件}
+\subsection{結果}
+
+\section{関連研究}
+
+\section{結論}
+
+\end{document}
